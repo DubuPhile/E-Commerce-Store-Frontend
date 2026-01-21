@@ -1,10 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 :root{
     --background-color: white;
     --text-color: black;
 }
+body{
+    background-color: #F2F2F2;
+}
 .body {
-    height: 80vh;
+    height: 70vh;
 }
 html {
   font-size: clamp(14px, 3.5vw, 18px);
