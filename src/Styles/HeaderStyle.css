@@ -1,0 +1,63 @@
+:root{
+    --background-color: white;
+    --text-color: black;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: orange;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    justify-content: space-between;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 100vw;
+    min-height: 50px;
+}
+.header-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    font-size: 1rem;
+}
+.header-title h2{
+    margin-right: 50px;
+}
+.header-title button{
+    border: none;
+    background-color: transparent;
+    padding: 10px;
+}
+.search-bar{
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    padding: 10px 17px;
+    width: 40vw;
+    height: 2rem;
+    font-family:'Times New Roman', Times, serif;
+}
+.search-bar-form{
+    display: flex;
+    align-items: center;
+}
+
+.Login{
+    font-size: 13px;
+    text-decoration: none;
+    margin: 10px;
+}
+.shopping-cart {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
