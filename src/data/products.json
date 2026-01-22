@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "category": "laptop",
+      "sku": "ASUS-VB-001",
+      "image": "Asus-Laptop.png",
+      "name": "ASUS Laptop Vivobook",
+      "price": 4500.00
+    },
+    {
+      "id": 2,
+      "category": "laptop",
+      "sku": "ASUS-BG-002",
+      "image": "laptop.png",
+      "name": "ASUS Laptop Budget",
+      "price": 2500.00
+    },
+    {
+      "id": 3,
+      "category": "phone",
+      "sku": "ROG-ZS600KL",
+      "image": "ROG-phone.jpg",
+      "name": "ROG Version ZS600KL",
+      "price": 3500.00
+    }
+  ]
+}
