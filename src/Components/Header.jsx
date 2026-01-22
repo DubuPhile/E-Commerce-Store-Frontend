@@ -22,7 +22,7 @@ const Header = () => {
           </form>
         </div>
         <div className="shopping-cart">
-          <Link to={'/Login'} className="Login">Log-in/Sign-Up</Link>
+          <Link to={'/Login'} className="Login">Log-in /Sign-Up</Link>
           <button className="cart-wrapper">
             <i className="fa-solid fa-cart-shopping" style={{fontSize: "25px"}}></i>
             <span className="count">3</span>
