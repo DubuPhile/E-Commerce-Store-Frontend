@@ -6,16 +6,20 @@ import App from './App.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { disableReactDevTools } from '@fvilers/disable-react-devtools'
 
+import ProductsProvider from './Context/productsProvider.jsx'
+
 if (process.env.NODE_ENV === 'production'){
   disableReactDevTools();
 }
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <StrictMode>   
     <BrowserRouter>
-      <Routes>
-        <Route path={"/*"} element={<App />} />
-      </Routes>
-    </BrowserRouter>
+      <ProductsProvider>
+        <Routes>        
+          <Route path={"/*"} element={<App />} />
+        </Routes>
+      </ProductsProvider>
+    </BrowserRouter>  
   </StrictMode>,
 )
