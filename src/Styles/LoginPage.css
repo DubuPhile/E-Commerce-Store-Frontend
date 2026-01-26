@@ -34,14 +34,27 @@
   border-radius: 0 20px 20px 0;
   background-color: var(--root-backgroud-color);
 }
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 .login-section h2 {
   margin-bottom: 40px;
+  animation: slideUp 1s ease-out forwards;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: slideUp 1s ease-out forwards;
 }
 .login-form label {
   display: none;
@@ -87,10 +100,9 @@
   background-color: hsl(39, 90%, 40%);
 }
 
-.error {
-  color: red;
-  display: flex;
-  flex-wrap: wrap;
-  width: 300px;
-  font-size: 0.9rem;
+.errmsg {
+  color: firebrick;
+}
+.offscreen {
+  display: none;
 }
