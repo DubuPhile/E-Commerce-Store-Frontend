@@ -1,9 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../features/auth/authSlice";
 import "../Styles/HeaderStyle.css";
 import Nav from "./Nav";
 import useCart from "../hooks/useCart";
+import DropdownUser from "./DropdownUser";
+
 const Header = () => {
+  const User = useSelector(selectCurrentUser);
   const [search, setSearch] = useState("");
   const { totalItems } = useCart();
   const navigate = useNavigate();
@@ -30,15 +35,28 @@ const Header = () => {
           </form>
         </div>
         <div className="shopping-cart">
-          <Link to={"/Login"} className="Login">
-            Log-in /Sign-Up
-          </Link>
+          {User ? (
+            <DropdownUser />
+          ) : (
+            <Link to={"/login"} className="Login">
+              Log-in /Sign-Up
+            </Link>
+          )}
           <button className="cart-wrapper" onClick={() => navigate("/cart")}>
             <i
               className="fa-solid fa-cart-shopping"
               style={{ fontSize: "25px" }}
             ></i>
-            <span className="count">{totalItems}</span>
+            <span
+              className="count"
+              style={
+                totalItems === 0 || null
+                  ? { display: "none" }
+                  : { display: "block" }
+              }
+            >
+              {totalItems}
+            </span>
           </button>
         </div>
       </section>
