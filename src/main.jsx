@@ -8,6 +8,8 @@ import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
 import ProductsProvider from "./Context/productsProvider.jsx";
 import { CartProvider } from "./Context/cartProvider.jsx";
+import { Provider } from "react-redux";
+import store from "./api/store.jsx";
 
 if (process.env.NODE_ENV === "production") {
   disableReactDevTools();
@@ -15,14 +17,16 @@ if (process.env.NODE_ENV === "production") {
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <ProductsProvider>
-        <CartProvider>
-          <Routes>
-            <Route path={"/*"} element={<App />} />
-          </Routes>
-        </CartProvider>
-      </ProductsProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ProductsProvider>
+          <CartProvider>
+            <Routes>
+              <Route path={"/*"} element={<App />} />
+            </Routes>
+          </CartProvider>
+        </ProductsProvider>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 );
