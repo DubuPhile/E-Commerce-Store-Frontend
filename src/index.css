@@ -42,6 +42,10 @@ html {
   max-width: 350px;
   filter: drop-shadow(3px 3px 7px rgba(0, 0, 0, 0.4));
 }
+.product__img:hover {
+  transform: scale(1.2);
+  transition: 0.5s ease;
+}
 .offscreen {
   position: absolute;
   left: -10000px;
