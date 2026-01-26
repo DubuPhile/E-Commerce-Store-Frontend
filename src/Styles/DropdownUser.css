@@ -1,0 +1,50 @@
+.user.open {
+  background-color: #262626;
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.dropdownUser {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownUser-menu {
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  min-width: 100px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #262626;
+  border-radius: 10px 0px 10px 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+  z-index: 1000;
+}
+
+.dropdownUser.open .dropdownUser-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdownUser-menu button {
+  display: block;
+  padding: 10px 14px;
+  width: 100px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: flex-end;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+.dropdownUser-menu button:hover {
+  background-color: hsl(0, 0%, 25%);
+  border-radius: 10px;
+}
