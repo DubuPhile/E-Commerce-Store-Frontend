@@ -1,0 +1,96 @@
+:root {
+  --background-color: hsl(39, 90%, 50%);
+  --root-backgroud-color: #262626;
+  --text-color: black;
+}
+
+.login-page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 100vh;
+}
+
+.ads-section {
+  width: 60%;
+  height: 80vh;
+  margin-left: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 20px 0 0 20px;
+  background-color: var(--background-color);
+}
+.login-section {
+  width: 40%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 0 20px 20px 0;
+  background-color: var(--root-backgroud-color);
+}
+.login-section h2 {
+  margin-bottom: 40px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-form label {
+  display: none;
+}
+.login-form input {
+  padding: 5px;
+  border-radius: 10px;
+  width: 300px;
+  border: none;
+  outline: none;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+.login-form input:hover,
+.login-form input:focus {
+  background-color: hsl(0, 0%, 90%);
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+.button a {
+  text-decoration: none;
+}
+
+.login-form button {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  background-color: var(--background-color);
+  width: 100px;
+  border: none;
+}
+.login-form button:hover {
+  background-color: hsl(39, 90%, 45%);
+}
+.login-form button:active {
+  background-color: hsl(39, 90%, 40%);
+}
+
+.error {
+  color: red;
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  font-size: 0.9rem;
+}
