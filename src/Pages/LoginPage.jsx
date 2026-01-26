@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Styles/LoginPage.css";
 import { useState, useRef, useEffect } from "react";
+import { useLoginMutation } from "../features/auth/authApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../features/auth/authSlice";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
@@ -9,6 +12,10 @@ const LoginPage = () => {
 
   const userRef = useRef();
   const errorRef = useRef();
+
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     userRef.current.focus();
@@ -20,42 +27,74 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+
+    try {
+      const userData = await login({ user: username, pwd: password }).unwrap();
+      dispatch(setCredentials({ ...userData, username }));
+      setUsername("");
+      setPassword("");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      if (err?.status === "FETCH_ERROR") {
+        setErrMsg("No Response from Server");
+      } else if (err?.status === 400) {
+        setErrMsg("Missing Username/Password");
+      } else if (err?.status === 401) {
+        setErrMsg("Unauthorized Person");
+      } else {
+        setErrMsg("Log-in Failed");
+      }
+      if (errorRef.current) errorRef.current.focus();
+    }
   };
 
   return (
     <section className="login-page">
-      <div className="ads-section">Hello</div>
+      <div className="ads-section"></div>
       <div className="login-section">
-        <h2>Log-in</h2>
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="username">Username: </label>
-          <input
-            type="text"
-            id="username"
-            autoComplete="off"
-            placeholder="Username/Email"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
-            ref={userRef}
-            required
-          />
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            id="password"
-            autoComplete="off"
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            required
-          />
+        {isLoading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <>
+            <p
+              ref={errorRef}
+              className={errMsg ? "errmsg" : "offscreen"}
+              aria-live="assertive"
+            >
+              {errMsg}
+            </p>
+            <h2>Log-in</h2>
+            <form className="login-form" onSubmit={handleSubmit}>
+              <label htmlFor="username">Username: </label>
+              <input
+                type="text"
+                id="username"
+                autoComplete="off"
+                placeholder="Username/Email"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                ref={userRef}
+                required
+              />
+              <label htmlFor="password">Password: </label>
+              <input
+                type="password"
+                id="password"
+                autoComplete="off"
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+              />
 
-          <div className="button">
-            <button>Sign In</button>
-            <Link to="#">Forgot Password?</Link>
-          </div>
-        </form>
+              <div className="button">
+                <button>Sign In</button>
+                <Link to="#">Forgot Password?</Link>
+              </div>
+            </form>
+          </>
+        )}
       </div>
     </section>
   );
