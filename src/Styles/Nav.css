@@ -1,69 +1,68 @@
-.nav-bar{
-    display: flex;
-    flex-direction: row;
-    background-color: #262626;
-    border-radius: 0px 0px 5px 5px;
-    align-items: center;
-    overflow: visible; 
-    position: relative;
-    z-index: 10;
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  background-color: #262626;
+  border-radius: 0px 0px 5px 5px;
+  align-items: center;
+  overflow: visible;
+  position: relative;
+  z-index: 10;
 }
 
-.nav-bar-ref{
-    text-decoration: none;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    color: white;
+.nav-bar-ref {
+  text-decoration: none;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: white;
 }
-.nav-bar-ref:hover{
-    color: hsl(0, 0%, 80%);
+.nav-bar-ref:hover {
+  color: hsl(0, 0%, 80%);
 }
 
 .nav-dropdown {
-    position:relative;
-     display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .products {
-    cursor: pointer;
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 
-
 .nav-dropdown-menu {
-    position: absolute;
-    top: 100%; 
-    left: 0;
-    min-width: 100px;
-    background-color: #262626;
-    border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.25s ease;
-    z-index: 1000;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 100px;
+  background-color: #262626;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+  z-index: 1000;
 }
 
 .nav-dropdown:hover .nav-dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .nav-dropdown-menu a {
-    display: block;
-    padding: 10px 14px;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
+  display: block;
+  padding: 10px 14px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
 }
 
 .nav-dropdown-menu a:hover {
-     background-color: hsl(0, 0%, 25%);
-     border-radius: 10px;
+  background-color: hsl(0, 0%, 25%);
+  border-radius: 10px;
 }
