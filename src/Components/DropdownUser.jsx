@@ -31,6 +31,8 @@ const DropdownUser = () => {
           {User}
         </button>
         <div className={`dropdownUser-menu`}>
+          <button>Profile</button>
+          <button>Settings</button>
           <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
