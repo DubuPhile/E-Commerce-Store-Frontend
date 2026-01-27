@@ -26,6 +26,14 @@ html {
   font-size: clamp(14px, 3.5vw, 18px);
 }
 
+.spinner {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
 .product {
   margin-bottom: 1em;
 }
