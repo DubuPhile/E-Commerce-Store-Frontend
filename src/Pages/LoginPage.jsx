@@ -29,7 +29,10 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const userData = await login({ user: username, pwd: password }).unwrap();
+      const userData = await login({
+        user: username,
+        password: password,
+      }).unwrap();
       dispatch(setCredentials({ ...userData, username }));
       setUsername("");
       setPassword("");
