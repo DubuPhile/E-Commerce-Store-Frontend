@@ -10,10 +10,9 @@ function App() {
     <>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-
         <Route element={<PersistLogin />}>
           <Route path="/" element={<HomePage />} />
-          <Route element={<RequireAuth allowedRoles={[2001, 5150]} />}>
+          <Route element={<RequireAuth allowedRoles={[700]} />}>
             <Route path="/cart" element={<CartPage />} />
           </Route>
         </Route>
