@@ -1,26 +1,25 @@
-import useProducts from "../hooks/useProducts";
 import Products from "./products";
-import useCart from "../hooks/useCart";
+import { useState } from "react";
+import { useGetProductsQuery } from "../features/products/productsApiSlice";
 
 const ProductsList = () => {
-  const { dispatch, REDUCER_ACTIONS, cart } = useCart();
-  const { products } = useProducts();
-
-  let pageContent = <p>Loading...</p>;
-
-  if (products?.length) {
+  const { data: products, isLoading, isError } = useGetProductsQuery();
+  const [LastAdded, setLastAdded] = useState(null);
+  let pageContent = "";
+  if (isLoading) pageContent = <p>Loading...</p>;
+  else if (products?.length) {
     pageContent = products.map((product) => {
-      const inCart = cart.some((item) => item.sku === product.sku);
       return (
         <Products
-          key={product.sku}
-          products={product}
-          dispatch={dispatch}
-          REDUCER_ACTIONS={REDUCER_ACTIONS}
-          inCart={inCart}
+          key={product._id}
+          product={product}
+          LastAdded={LastAdded}
+          setLastAdded={setLastAdded}
         />
       );
     });
+  } else {
+    pageContent = <p>Error loading products</p>;
   }
 
   return <main className="main main--products">{pageContent}</main>;
