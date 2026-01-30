@@ -22,7 +22,7 @@ const PersistLogin = () => {
     };
     !auth?.token ? verifyRefreshToken() : setIsLoading(false);
     return () => (isMounted = false);
-  }, [auth?.token, refresh]);
+  }, []);
 
   return isLoading ? <Spinner /> : <Outlet />;
 };
