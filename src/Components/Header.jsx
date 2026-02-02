@@ -4,13 +4,15 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../features/auth/authSlice";
 import "../Styles/HeaderStyle.css";
 import Nav from "./Nav";
-import useCart from "../hooks/useCart";
 import DropdownUser from "./DropdownUser";
+import { useGetMyCartQuery } from "../features/cart/cartApiSlice";
 
 const Header = () => {
   const User = useSelector(selectCurrentUser);
   const [search, setSearch] = useState("");
-  const { totalItems } = useCart();
+  const { data: cart, isLoading } = useGetMyCartQuery();
+
+  const totalItems = cart?.items.length ?? 0;
   const navigate = useNavigate();
   return (
     <header className="header">
@@ -50,12 +52,14 @@ const Header = () => {
             <span
               className="count"
               style={
-                totalItems === 0 || null
+                totalItems === undefined ||
+                totalItems === null ||
+                totalItems === 0
                   ? { display: "none" }
                   : { display: "block" }
               }
             >
-              {totalItems}
+              {isLoading ? "Loading..." : totalItems}
             </span>
           </button>
         </div>
