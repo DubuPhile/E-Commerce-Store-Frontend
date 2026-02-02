@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Layout from "../Components/Layout";
 import CartLineItem from "../Components/CartLineItem";
 import { useGetMyCartQuery } from "../features/cart/cartApiSlice";
+import "../Styles/cart.css";
 
 const CartPage = () => {
   const [confirm, setConfirm] = useState(false);
@@ -40,7 +41,7 @@ const CartPage = () => {
     <>
       <h2 className="offscreen">Cart</h2>
       <ul>
-        {cart.map((item) => {
+        {sortedItems.map((item) => {
           return <CartLineItem key={item._id} item={item} />;
         })}
       </ul>
