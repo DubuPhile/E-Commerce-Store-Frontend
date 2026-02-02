@@ -1,41 +1,29 @@
-import { memo } from "react";
-
-const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }) => {
-  const img = new URL(`../images/${item?.image}`, import.meta.url).href;
-
-  const lineTotal = item.qty * item.price;
-  const highestQty = 20 > item.qty ? 20 : item.qty;
+const CartLineItem = ({ item }) => {
+  const img = item.product?.imageUrl;
+  const lineTotal = item.quantity * item.product.price;
+  const highestQty = 20 > item.quantity ? 20 : item.quantity;
   const optionValue = [...Array(highestQty).keys()].map((i) => i + 1);
   const option = optionValue.map((val) => {
     return (
-      <option key={`opt${val}`} value={val}>
+      <option key={`opt${val}`} value={val} className="option">
         {val}
       </option>
     );
   });
 
-  const onChangeQty = (e) => {
-    dispatch({
-      type: REDUCER_ACTIONS.QUANTITY,
-      payload: { ...item, qty: Number(e.target.value) },
-    });
-  };
+  const onChangeQty = (e) => {};
 
-  const onRemoveFromCart = () =>
-    dispatch({
-      type: REDUCER_ACTIONS.REMOVE,
-      payload: item,
-    });
+  const onRemoveFromCart = () => {};
 
   return (
     <li className="cart-item">
       <img src={img} alt={item.name} className="cart-img" />
-      <div aria-label="Item name">{item.name}</div>
+      <div aria-label="Item name">{item.product?.name}</div>
       <div aria-label="Price per Item">
         {new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
-        }).format(item.price)}
+        }).format(item.product?.price)}
       </div>
       <label htmlFor="itemQty" className="offscreen">
         Item Quantity
@@ -44,7 +32,7 @@ const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }) => {
         name="itemQty"
         id="itemQty"
         className="cart-select"
-        value={item.qty}
+        value={item.quantity}
         aria-label="Item Quantity"
         onChange={onChangeQty}
       >
@@ -68,12 +56,4 @@ const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }) => {
   );
 };
 
-function areItemsEqual({ item: prevItem }, { item: nextItem }) {
-  return Object.keys(prevItem).every((key) => {
-    return prevItem[key] === nextItem[key];
-  });
-}
-
-const MemoizedCartLineItem = memo(CartLineItem, areItemsEqual);
-
-export default MemoizedCartLineItem;
+export default CartLineItem;
