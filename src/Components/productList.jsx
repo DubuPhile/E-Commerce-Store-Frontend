@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useGetProductsQuery } from "../features/products/productsApiSlice";
 
 const ProductsList = () => {
-  const { data: products, isLoading, isError } = useGetProductsQuery();
+  const { data: products, isLoading } = useGetProductsQuery();
   const [LastAdded, setLastAdded] = useState(null);
   let pageContent = "";
   if (isLoading) pageContent = <p>Loading...</p>;
