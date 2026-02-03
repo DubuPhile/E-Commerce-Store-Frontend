@@ -35,15 +35,20 @@ html {
 }
 
 .product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 1em;
+  justify-content: center;
+  cursor: pointer;
 }
-.product h3 {
+.product h4 {
   display: flex;
   justify-content: center;
 }
-.product p,
-.product button {
-  margin-left: 20px;
+.product p {
+  display: flex;
+  justify-content: center;
 }
 
 .product__img {
@@ -99,4 +104,19 @@ html {
   width: 30px;
   text-align: center;
   font-size: 16px;
+}
+
+.button-add-to-cart {
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
+  background-color: var(--background-color);
+  margin: 10px;
+}
+.button-add-to-cart:hover {
+  background-color: hsl(39, 90%, 45%);
+}
+.button-add-to-cart:active {
+  background-color: hsl(39, 90%, 40%);
 }
