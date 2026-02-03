@@ -2,19 +2,6 @@
   flex-flow: row wrap;
   justify-content: space-evenly;
 }
-.button-add-to-cart {
-  border: none;
-  border-radius: 10px;
-  padding: 5px;
-  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
-  background-color: var(--background-color);
-}
-.button-add-to-cart:hover {
-  background-color: hsl(39, 90%, 45%);
-}
-.button-add-to-cart:active {
-  background-color: hsl(39, 90%, 40%);
-}
 
 .main-cart {
   flex-flow: column nowrap;
