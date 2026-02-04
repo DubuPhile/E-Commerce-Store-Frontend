@@ -109,7 +109,7 @@ const RegisterPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <label htmlFor="email">Email </label>
+            <label htmlFor="email">Email Address </label>
           </div>
           <section className="register-button">
             <button className="button-signUp">Sign Up</button>
