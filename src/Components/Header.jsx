@@ -39,6 +39,8 @@ const Header = () => {
     setSearch(e.target.value);
     setShowResults(true); // Show results when typing
   };
+
+  const handleClickResult = () => {};
   return (
     <header className="header">
       <section className="header-section">
@@ -74,7 +76,11 @@ const Header = () => {
                       products?.map((p) => (
                         <section
                           key={p._id}
-                          onClick={() => navigate(`/product-details/${p._id}`)}
+                          onClick={() => {
+                            (navigate(`/product-details/${p._id}`),
+                              setShowResults(false),
+                              setSearch(""));
+                          }}
                           className="searchButton"
                         >
                           <img src={p.imageUrl} className="searchImg" />
