@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { useAddToCartMutation } from "../features/cart/cartApiSlice";
+import { selectCurrentToken } from "../features/auth/authSlice";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const BuyPhase = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [addToCart, { isLoading }] = useAddToCartMutation();
   const [isCart, setIsCart] = useState(false);
+  const Token = useSelector(selectCurrentToken);
+  const navigate = useNavigate();
 
   const decrease = () => {
     if (quantity > 1) setQuantity(quantity - 1);
@@ -14,6 +19,7 @@ const BuyPhase = ({ product }) => {
   };
 
   const onAddtoCart = async () => {
+    if (!Token) return navigate("/login");
     try {
       await addToCart({
         productId: product._id,
