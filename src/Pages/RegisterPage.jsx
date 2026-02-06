@@ -30,26 +30,26 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (USER_REGEX.test(username) === false) {
-      return console.log("invalid username!");
+      setError("Invalid username!");
     } else if (EMAIL_REGEX.test(email) === false) {
-      return console.log("invalid email");
+      setError("Invalid email!");
     } else if (PWD_REGEX.test(password) === false) {
-      return console.log("invalid password");
+      setError("Invalid password!");
     } else if (password !== confirmPassword) {
-      return console.log("password do not match");
+      setError("Password do not match!");
     }
     try {
       const res = await register({ user: username, email, password }).unwrap();
       console.log("Register SuccessFully");
     } catch (err) {
       console.log(err);
-      setError(err);
     }
   };
   return (
     <section className="register-page">
       <div className="ads-section"></div>
       <div className="register-section">
+        {isError ? <p className="error-message">{error}</p> : ""}
         <h1 className="register-title">Register</h1>
         <form className="register-form" onSubmit={handleSubmit}>
           <div>
