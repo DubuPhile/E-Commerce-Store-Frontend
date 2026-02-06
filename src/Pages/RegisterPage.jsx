@@ -1,5 +1,6 @@
 import "../Styles/RegisterPage.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useRegisterMutation } from "../features/auth/authApiSlice";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -8,6 +9,8 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [register, { isLoading, isError }] = useRegisterMutation();
 
   const [error, setError] = useState("");
   const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -24,7 +27,25 @@ const RegisterPage = () => {
     }
   }, [password, confirmPassword]);
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (USER_REGEX.test(username) === false) {
+      return console.log("invalid username!");
+    } else if (EMAIL_REGEX.test(email) === false) {
+      return console.log("invalid email");
+    } else if (PWD_REGEX.test(password) === false) {
+      return console.log("invalid password");
+    } else if (password !== confirmPassword) {
+      return console.log("password do not match");
+    }
+    try {
+      const res = await register({ user: username, email, password }).unwrap();
+      console.log("Register SuccessFully");
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    }
+  };
   return (
     <section className="register-page">
       <div className="ads-section"></div>
