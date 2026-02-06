@@ -57,7 +57,7 @@
     opacity: 1;
   }
 }
-.login-section h2 {
+.login-section h1 {
   margin-bottom: 40px;
   animation: slideUp 1s ease-out forwards;
 }
