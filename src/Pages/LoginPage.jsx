@@ -4,16 +4,18 @@ import { useState, useRef, useEffect } from "react";
 import { useLoginMutation } from "../features/auth/authApiSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
+import { useToast } from "../Context/ToastContext";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const { triggerToast } = useToast();
 
   const userRef = useRef();
   const errorRef = useRef();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,6 +27,11 @@ const LoginPage = () => {
     setErrMsg("");
   }, [username, password]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      triggerToast("Login Successfully!", "success");
+    }
+  }, [isSuccess]);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
