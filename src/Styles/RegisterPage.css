@@ -30,6 +30,8 @@
 }
 .register-title {
   font-size: 45px;
+  margin-right: 20px;
+  margin-bottom: 40px;
   animation: slideUp 1s ease-out forwards;
 }
 .register-form {
@@ -52,6 +54,7 @@
   width: clamp(100px, 50vw, 300px);
   border-radius: 5px;
   padding-left: 5px;
+  font-size: 15px;
   outline: none;
   z-index: 1;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
@@ -60,6 +63,7 @@
   position: absolute;
   color: black;
   z-index: 2;
+  font-size: 15px;
   padding-left: 5px;
   transition: 0.2s ease;
   cursor: text;
