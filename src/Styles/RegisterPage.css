@@ -3,7 +3,7 @@
 :root {
   --background-color: hsl(39, 90%, 50%);
   --root-backgroud-color: #262626;
-  --text-color: black;
+  --text-color: rgba(0, 0, 0, 0.767);
 }
 
 .register-page {
@@ -29,10 +29,17 @@
   border-radius: 0 20px 20px 0;
 }
 .register-title {
+  display: flex;
+  align-items: flex-start;
+  width: 250px;
   font-size: 45px;
   margin-right: 20px;
   margin-bottom: 40px;
   animation: slideUp 1s ease-out forwards;
+}
+.error-message {
+  color: hsl(0, 79%, 53%);
+  animation: slideUp 0.5s ease-out forwards;
 }
 .register-form {
   display: flex;
@@ -45,13 +52,14 @@
   display: flex;
   align-items: center;
   margin: 10px;
+  width: clamp(200px, 80vw, 250px);
   padding-top: 15px;
 }
 .register-form input {
   position: relative;
   background-color: white;
   border: 2px solid white;
-  width: clamp(100px, 50vw, 300px);
+  width: 100%;
   border-radius: 5px;
   padding-left: 5px;
   font-size: 15px;
@@ -82,9 +90,13 @@
 }
 
 .register-form .toggle-password {
-  position: relative;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transform: translateX(-25px);
+  width: 100%;
   cursor: pointer;
-  transform: translateX(-30px);
   color: #555;
   z-index: 4;
 }
