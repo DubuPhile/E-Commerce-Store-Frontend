@@ -8,6 +8,7 @@ import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
 import { Provider } from "react-redux";
 import store from "./api/store.jsx";
+import { ToastProvider } from "./Context/ToastContext.jsx";
 
 if (process.env.NODE_ENV === "production") {
   disableReactDevTools();
@@ -16,11 +17,13 @@ if (process.env.NODE_ENV === "production") {
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/*"} element={<App />} />
-        </Routes>
-      </BrowserRouter>
+      <ToastProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path={"/*"} element={<App />} />
+          </Routes>
+        </BrowserRouter>
+      </ToastProvider>
     </Provider>
   </StrictMode>,
 );
