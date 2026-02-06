@@ -1,9 +1,10 @@
 import "../Styles/RegisterPage.css";
 import { useState, useEffect } from "react";
 import { useRegisterMutation } from "../features/auth/authApiSlice";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useToast } from "../Context/ToastContext";
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -11,7 +12,8 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [register, { isLoading, isError }] = useRegisterMutation();
+  const [register, { isLoading, isError, isSuccess }] = useRegisterMutation();
+  const { triggerToast } = useToast();
 
   const [error, setError] = useState("");
   const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -28,6 +30,15 @@ const RegisterPage = () => {
     }
   }, [password, confirmPassword]);
 
+  useEffect(() => {
+    if (isError && error) {
+      triggerToast(error, "error");
+    }
+    if (isSuccess) {
+      triggerToast("Register Successfully!", "success");
+    }
+  }, [isError, error, triggerToast, isSuccess]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!USER_REGEX.test(username)) {
@@ -41,9 +52,17 @@ const RegisterPage = () => {
     }
     try {
       const res = await register({ user: username, email, password }).unwrap();
-      console.log("Register SuccessFully");
+      if (isSuccess) {
+        setPassword("");
+        setUsername("");
+        setEmail("");
+        navigate("/login");
+      }
     } catch (err) {
       console.log(err);
+      if (err.status === 409) {
+        setError(err.data?.message);
+      }
     }
   };
   return (
