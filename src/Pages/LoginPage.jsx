@@ -67,7 +67,7 @@ const LoginPage = () => {
             >
               {errMsg}
             </p>
-            <h2>Log-in</h2>
+            <h1>Log-in</h1>
             <form className="login-form" onSubmit={handleSubmit}>
               <label htmlFor="username">Username: </label>
               <input
@@ -93,7 +93,7 @@ const LoginPage = () => {
 
               <div className="button">
                 <button>Sign In</button>
-                <Link to="#">Forgot Password?</Link>
+                <Link to="/register">Don't have an Account?</Link>
               </div>
             </form>
           </>
