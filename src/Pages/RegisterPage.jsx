@@ -1,6 +1,7 @@
 import "../Styles/RegisterPage.css";
 import { useState, useEffect } from "react";
 import { useRegisterMutation } from "../features/auth/authApiSlice";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -29,11 +30,11 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (USER_REGEX.test(username) === false) {
+    if (!USER_REGEX.test(username)) {
       setError("Invalid username!");
-    } else if (EMAIL_REGEX.test(email) === false) {
+    } else if (!EMAIL_REGEX.test(email)) {
       setError("Invalid email!");
-    } else if (PWD_REGEX.test(password) === false) {
+    } else if (!PWD_REGEX.test(password)) {
       setError("Invalid password!");
     } else if (password !== confirmPassword) {
       setError("Password do not match!");
@@ -134,6 +135,9 @@ const RegisterPage = () => {
           </div>
           <section className="register-button">
             <button className="button-signUp">Sign Up</button>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              Have an Account?
+            </Link>
           </section>
         </form>
       </div>
