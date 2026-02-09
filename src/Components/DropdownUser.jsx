@@ -31,7 +31,7 @@ const DropdownUser = () => {
           {User}
         </button>
         <div className={`dropdownUser-menu`}>
-          <button>Profile</button>
+          <button onClick={() => navigate("/profile")}>Profile</button>
           <button>Settings</button>
           <button onClick={handleLogout}>Logout</button>
         </div>
