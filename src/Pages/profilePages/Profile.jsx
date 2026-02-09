@@ -23,12 +23,17 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form.username);
 
     const formData = new FormData();
     Object.entries(form).forEach(([key, value]) => {
       formData.append(key, value);
     });
+    setIsEditable(false);
+  };
+
+  const handleCancel = async (e) => {
+    e.preventDefault();
+    setIsEditable(false);
   };
   return (
     <ProfileLayout>
@@ -101,7 +106,18 @@ const Profile = () => {
               <i className="fa-solid fa-pen edit-icon"></i>
             </button>
           ) : (
-            <button className="button-Submit">Submit</button>
+            <div className="button-cancel-submit">
+              <button
+                className="button-Cancel"
+                type="button"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+              <button className="button-Submit" type="submit">
+                Submit
+              </button>
+            </div>
           )}
         </form>
       </section>
