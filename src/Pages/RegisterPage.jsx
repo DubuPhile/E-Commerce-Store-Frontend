@@ -52,12 +52,10 @@ const RegisterPage = () => {
     }
     try {
       const res = await register({ user: username, email, password }).unwrap();
-      if (isSuccess) {
-        setPassword("");
-        setUsername("");
-        setEmail("");
-        navigate("/login");
-      }
+      setPassword("");
+      setUsername("");
+      setEmail("");
+      navigate("/login");
     } catch (err) {
       console.log(err);
       if (err.status === 409) {
