@@ -1,0 +1,101 @@
+.profile-main {
+  margin: 10px;
+  padding: 5px;
+}
+.profile-picture {
+  float: right;
+  width: 200px;
+  border-radius: 100%;
+}
+
+.profile-form-div {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  width: 400px;
+  padding-top: 15px;
+}
+.profile-form-div section {
+  display: flex;
+
+  width: 300px;
+}
+
+.profile-form label {
+  padding: 5px;
+  font-size: 15px;
+  width: 100px;
+}
+
+.profile-form input {
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid;
+  font-size: 15px;
+  padding-left: 10px;
+  width: clamp(150px, 50vw, 200px);
+  color: black;
+  background-color: #ebebeb94;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.116);
+}
+.profile-form input:disabled {
+  border: 1px solid rgb(168, 168, 168);
+}
+
+.gender-main,
+.date-main {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin: 5px;
+}
+.gender-main label,
+.date-main label {
+  width: 100px;
+  padding: 10px;
+}
+.gender {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100px;
+}
+.gender input {
+  background-color: none;
+  box-shadow: none;
+  width: 20%;
+}
+
+.date-main input {
+  border: none;
+  cursor: text;
+}
+.date-main input:disabled {
+  cursor: auto;
+  outline: none;
+}
+
+.button-Edit,
+.button-Submit {
+  border: none;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  background-color: var(--background-color);
+  margin-left: 10px;
+  width: 80px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+.button-Edit:hover,
+.button-Submit:hover {
+  background-color: hsl(39, 90%, 60%);
+  color: hsl(0, 0%, 20%);
+}
+.button-Edit:active,
+.button-Submit:active {
+  background-color: hsl(39, 90%, 40%);
+  color: hsl(0, 0%, 20%);
+}
