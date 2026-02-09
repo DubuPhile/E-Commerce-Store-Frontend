@@ -96,6 +96,33 @@
 }
 .button-Edit:active,
 .button-Submit:active {
-  background-color: hsl(39, 90%, 40%);
+  background-color: hsl(39, 90%, 70%);
   color: hsl(0, 0%, 20%);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button-cancel-submit {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.button-Cancel {
+  border: none;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 80%);
+  margin-left: 10px;
+  width: 80px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+.button-Cancel:hover {
+  background-color: hsl(0, 0%, 85%);
+}
+.button-Cancel:active {
+  background-color: hsl(0, 0%, 90%);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
