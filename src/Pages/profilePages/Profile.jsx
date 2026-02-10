@@ -1,6 +1,8 @@
 import ProfileLayout from "../../Components/ProfileLayout";
 import "../../Styles/profile.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useGetUserQuery } from "../../features/auth/authApiSlice";
+import { hideEmail } from "../../utils/hideEmail";
 
 const Profile = () => {
   const [isEditable, setIsEditable] = useState(false);
@@ -10,7 +12,21 @@ const Profile = () => {
     gender: "",
     date: "",
   });
+  const { data } = useGetUserQuery();
   const genders = ["Male", "Female", "Other"];
+
+  useEffect(() => {
+    if (data?.data) {
+      setForm({
+        username: data.data.user || "",
+        email: data.data.email || "",
+        gender: data.data.gender || "",
+        date: data.data.date || "",
+      });
+    }
+  }, [data]);
+
+  console.log(hideEmail(form.email));
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -65,7 +81,9 @@ const Profile = () => {
                 type="text"
                 name="email"
                 autoComplete="off"
-                value={form.email}
+                value={
+                  isEditable === false ? hideEmail(form.email) : form.email
+                }
                 onChange={handleChange}
                 disabled={!isEditable}
               />
