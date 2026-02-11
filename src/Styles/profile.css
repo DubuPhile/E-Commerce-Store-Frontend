@@ -40,6 +40,7 @@
 }
 .profile-form input:disabled {
   border: 1px solid rgb(168, 168, 168);
+  color: grey;
 }
 
 .gender-main,
