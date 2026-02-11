@@ -1,24 +1,28 @@
 import ProfileLayout from "../../Components/ProfileLayout";
 import "../../Styles/profile.css";
 import { useState, useEffect } from "react";
-import { useGetUserQuery } from "../../features/auth/authApiSlice";
+import {
+  useGetUserQuery,
+  useUpdateUserMutation,
+} from "../../features/auth/authApiSlice";
 import { hideEmail } from "../../utils/hideEmail";
 
 const Profile = () => {
   const [isEditable, setIsEditable] = useState(false);
   const [form, setForm] = useState({
-    username: "",
+    user: "",
     email: "",
     gender: "",
     date: "",
   });
   const { data } = useGetUserQuery();
+  const [updateUser, { isLoading }] = useUpdateUserMutation();
   const genders = ["Male", "Female", "Other"];
 
   useEffect(() => {
     if (data?.data) {
       setForm({
-        username: data.data.user || "",
+        user: data.data.user || "",
         email: data.data.email || "",
         gender: data.data.gender || "",
         date: data.data.date || "",
@@ -44,6 +48,13 @@ const Profile = () => {
     Object.entries(form).forEach(([key, value]) => {
       formData.append(key, value);
     });
+
+    try {
+      await updateUser(form).unwrap();
+      console.log("Update Successfully!");
+    } catch (err) {
+      console.error("Update failed: ", err);
+    }
     setIsEditable(false);
   };
 
@@ -68,7 +79,7 @@ const Profile = () => {
                 type="text"
                 name="username"
                 autoComplete="off"
-                value={form.username}
+                value={form.user}
                 onChange={handleChange}
                 disabled={!isEditable}
               />
