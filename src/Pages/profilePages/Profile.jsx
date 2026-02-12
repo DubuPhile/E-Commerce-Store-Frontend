@@ -1,13 +1,19 @@
 import ProfileLayout from "../../Components/ProfileLayout";
 import "../../Styles/profile.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   useGetUserQuery,
   useUpdateUserMutation,
 } from "../../features/auth/authApiSlice";
 import { hideEmail } from "../../utils/hideEmail";
+import ImageCropperModal from "../../Components/ImageCropperModal";
 
 const Profile = () => {
+  const [imageSrc, setImageSrc] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+
   const [isEditable, setIsEditable] = useState(false);
   const [form, setForm] = useState({
     user: "",
@@ -19,6 +25,8 @@ const Profile = () => {
   const [updateUser, { isLoading }] = useUpdateUserMutation();
   const genders = ["Male", "Female", "Other"];
 
+  const fileRef = useRef();
+
   useEffect(() => {
     if (data?.data) {
       setForm({
@@ -27,17 +35,16 @@ const Profile = () => {
         gender: data.data.gender || "",
         date: data.data.date || "",
       });
+      setPreview(data.data?.image || null);
     }
   }, [data]);
 
-  console.log(hideEmail(form.email));
-
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { id, value, files } = e.target;
 
     setForm((prev) => ({
       ...prev,
-      [name]: files ? files[0] : value,
+      [id]: files ? files[0] : value,
     }));
   };
 
@@ -48,9 +55,10 @@ const Profile = () => {
     Object.entries(form).forEach(([key, value]) => {
       formData.append(key, value);
     });
+    formData.append("image", croppedImage);
 
     try {
-      await updateUser(form).unwrap();
+      await updateUser(formData).unwrap();
       console.log("Update Successfully!");
     } catch (err) {
       console.error("Update failed: ", err);
@@ -62,13 +70,84 @@ const Profile = () => {
     e.preventDefault();
     setIsEditable(false);
   };
+
   return (
     <ProfileLayout>
       <section className="profile-main">
-        <img
+        <section
           className="profile-picture"
-          src="https://png.pngtree.com/png-vector/20221130/ourmid/pngtree-user-profile-button-for-web-and-mobile-design-vector-png-image_41767880.jpg"
-        />
+          // src="https://png.pngtree.com/png-vector/20221130/ourmid/pngtree-user-profile-button-for-web-and-mobile-design-vector-png-image_41767880.jpg"
+        >
+          <input
+            type="file"
+            hidden
+            ref={fileRef}
+            accept="image/*"
+            onChange={(e) => {
+              const selectedFile = e.target.files[0];
+              if (!selectedFile) return;
+              if (selectedFile.size > 2 * 1024 * 1024) {
+                alert("Max 2MB");
+                return;
+              }
+
+              const imageURL = URL.createObjectURL(selectedFile);
+
+              setImageSrc(imageURL);
+              setSelectedImage(imageURL);
+            }}
+          />
+          <div
+            style={{
+              width: "150px",
+              height: "150px",
+              overflow: "hidden",
+              borderRadius: "8px",
+            }}
+          >
+            <img
+              src={
+                croppedImage
+                  ? URL.createObjectURL(croppedImage)
+                  : preview
+                    ? preview
+                    : "https://png.pngtree.com/png-vector/20221130/ourmid/pngtree-user-profile-button-for-web-and-mobile-design-vector-png-image_41767880.jpg"
+              }
+              alt="Preview"
+              onClick={() => {
+                if (imageSrc) {
+                  setSelectedImage(imageSrc);
+                }
+              }}
+              style={{
+                width: "100%",
+                height: "100%",
+                marginTop: "10px",
+                borderRadius: "8px",
+                objectFit: "cover",
+              }}
+            />
+          </div>
+          <button
+            className="button-upload-image"
+            type="button"
+            disabled={!isEditable}
+            onClick={() => fileRef.current.click()}
+          >
+            {!croppedImage && !preview ? "Upload Image" : "Change Image"}
+          </button>
+        </section>
+        {selectedImage && (
+          <ImageCropperModal
+            image={selectedImage}
+            aspect={1}
+            onSave={(blob) => {
+              setCroppedImage(blob);
+              setSelectedImage(null);
+            }}
+            onCancel={() => setSelectedImage(null)}
+          />
+        )}
         <h4>My Profile</h4>
         <p>Manage and protect your account.</p>
         <form className="profile-form" onSubmit={handleSubmit}>
@@ -77,7 +156,7 @@ const Profile = () => {
             <section>
               <input
                 type="text"
-                name="username"
+                id="username"
                 autoComplete="off"
                 value={form.user}
                 onChange={handleChange}
@@ -90,7 +169,7 @@ const Profile = () => {
             <section>
               <input
                 type="text"
-                name="email"
+                id="email"
                 autoComplete="off"
                 value={
                   isEditable === false ? hideEmail(form.email) : form.email
@@ -101,12 +180,12 @@ const Profile = () => {
             </section>
           </div>
           <div className="gender-main">
-            <label>Gender</label>
+            <label htmlFor="gender">Gender</label>
             {genders.map((g) => (
               <div key={g} className="gender">
                 <input
                   type="radio"
-                  name="gender"
+                  id="gender"
                   value={g}
                   checked={form.gender === g}
                   onChange={handleChange}
@@ -120,7 +199,7 @@ const Profile = () => {
             <label htmlFor="date">Date of Birth</label>
             <input
               type="date"
-              name="date"
+              id="date"
               value={form.date}
               onChange={handleChange}
               disabled={!isEditable}
