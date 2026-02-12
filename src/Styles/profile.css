@@ -1,9 +1,14 @@
 .profile-main {
   margin: 10px;
   padding: 5px;
+  max-width: 650px;
 }
 .profile-picture {
   float: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 200px;
   border-radius: 100%;
 }
@@ -126,4 +131,22 @@
 .button-Cancel:active {
   background-color: hsl(0, 0%, 90%);
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button-upload-image {
+  border: none;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 88%);
+}
+.button-upload-image:hover {
+  background-color: hsl(0, 0%, 80%);
+}
+.button-upload-image:active {
+  background-color: hsl(0, 0%, 70%);
+}
+.button-upload-image:disabled {
+  background-color: hsl(0, 0%, 88%);
+  color: grey;
 }
