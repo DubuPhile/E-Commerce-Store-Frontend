@@ -8,6 +8,9 @@ import {
 import { hideEmail } from "../../utils/hideEmail";
 import ImageCropperModal from "../../Components/ImageCropperModal";
 
+import { selectCurrentUser } from "../../features/auth/authSlice";
+import { useSelector } from "react-redux";
+
 const Profile = () => {
   const [imageSrc, setImageSrc] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -21,7 +24,11 @@ const Profile = () => {
     gender: "",
     date: "",
   });
-  const { data } = useGetUserQuery();
+  const User = useSelector(selectCurrentUser);
+  const { data, refetch } = useGetUserQuery(User, {
+    skip: !User,
+    refetchOnMountOrArgChange: true,
+  });
   const [updateUser, { isLoading }] = useUpdateUserMutation();
   const genders = ["Male", "Female", "Other"];
 
@@ -59,6 +66,7 @@ const Profile = () => {
 
     try {
       await updateUser(formData).unwrap();
+      refetch();
       console.log("Update Successfully!");
     } catch (err) {
       console.error("Update failed: ", err);
@@ -205,7 +213,9 @@ const Profile = () => {
               disabled={!isEditable}
             />
           </div>
-          {isEditable === false ? (
+          {isLoading ? (
+            <p className="isLoading">Loading Please Wait...</p>
+          ) : isEditable === false ? (
             <button
               className="button-Edit"
               onClick={(e) => setIsEditable(true, e.preventDefault())}
