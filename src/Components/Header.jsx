@@ -40,7 +40,6 @@ const Header = () => {
     setShowResults(true); // Show results when typing
   };
 
-  const handleClickResult = () => {};
   return (
     <header className="header">
       <section className="header-section">
