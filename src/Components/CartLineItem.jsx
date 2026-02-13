@@ -48,12 +48,12 @@ const CartLineItem = ({ item }) => {
           currency: "USD",
         }).format(item.product?.price)}
       </div>
-      <label htmlFor="itemQty" className="offscreen">
+      <label htmlFor={`itemQty ${item._id}`} className="offscreen">
         Item Quantity
       </label>
       <select
         name="itemQty"
-        id="itemQty"
+        id={`itemQty ${item._id}`}
         className="cart-select"
         value={item.quantity}
         aria-label="Item Quantity"
