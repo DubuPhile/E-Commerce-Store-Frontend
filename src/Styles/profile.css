@@ -150,3 +150,9 @@
   background-color: hsl(0, 0%, 88%);
   color: grey;
 }
+.isLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
