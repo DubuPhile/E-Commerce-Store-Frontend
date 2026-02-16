@@ -25,17 +25,18 @@ const Profile = () => {
     gender: "",
     date: "",
   });
-  const User = useSelector(selectCurrentUser);
+
   const { data, refetch } = useGetUserQuery(User, {
     skip: !User,
     refetchOnMountOrArgChange: true,
   });
   const [updateUser, { isLoading, isError, isSuccess }] =
     useUpdateUserMutation();
-  const genders = ["Male", "Female", "Other"];
 
   const fileRef = useRef();
   const { triggerToast } = useToast();
+  const User = useSelector(selectCurrentUser);
+  const genders = ["Male", "Female", "Other"];
 
   useEffect(() => {
     if (data?.data) {
