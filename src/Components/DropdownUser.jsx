@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, selectCurrentUser } from "../features/auth/authSlice";
 import { apiSlice } from "../api/apiSlice";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../Styles/DropdownUser.css";
 import {
   useGetUserQuery,
   useLogoutMutation,
 } from "../features/auth/authApiSlice";
 import { useNavigate } from "react-router-dom";
+import useClickOutside from "../hooks/useClickOutside";
+
 const DropdownUser = () => {
   const User = useSelector(selectCurrentUser);
   const { data } = useGetUserQuery(User, {
@@ -20,10 +22,13 @@ const DropdownUser = () => {
   const [logout] = useLogoutMutation();
 
   const [avatar, setAvatar] = useState(data?.data?.image || null);
+  const openRef = useRef(null);
 
   useEffect(() => {
     setAvatar(data?.data?.image || null);
   }, [data?.data?.image]);
+
+  useClickOutside(openRef, () => setOpen(false), open);
 
   const handleLogout = async () => {
     try {
@@ -42,6 +47,7 @@ const DropdownUser = () => {
         <button
           className={`user ${open ? "open" : ""}`}
           onClick={() => setOpen(!open)}
+          ref={openRef}
         >
           {User}
           <img
