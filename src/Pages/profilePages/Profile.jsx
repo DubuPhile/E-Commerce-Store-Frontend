@@ -10,6 +10,7 @@ import ImageCropperModal from "../../Components/ImageCropperModal";
 
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { useSelector } from "react-redux";
+import { useToast } from "../../Context/ToastContext";
 
 const Profile = () => {
   const [imageSrc, setImageSrc] = useState(null);
@@ -29,10 +30,12 @@ const Profile = () => {
     skip: !User,
     refetchOnMountOrArgChange: true,
   });
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [updateUser, { isLoading, isError, isSuccess }] =
+    useUpdateUserMutation();
   const genders = ["Male", "Female", "Other"];
 
   const fileRef = useRef();
+  const { triggerToast } = useToast();
 
   useEffect(() => {
     if (data?.data) {
@@ -66,10 +69,12 @@ const Profile = () => {
 
     try {
       await updateUser(formData).unwrap();
+
+      triggerToast("Update Successfully!", "success");
       refetch();
-      console.log("Update Successfully!");
     } catch (err) {
       console.error("Update failed: ", err);
+      triggerToast("Update Failed!", "error");
     }
     setIsEditable(false);
   };
