@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../features/auth/authSlice";
 import "../Styles/HeaderStyle.css";
@@ -7,6 +7,7 @@ import Nav from "./Nav";
 import DropdownUser from "./DropdownUser";
 import { useGetMyCartQuery } from "../features/cart/cartApiSlice";
 import { useSearchProductQuery } from "../features/products/productsApiSlice";
+import useClickOutside from "../hooks/useClickOutside";
 
 const Header = () => {
   const User = useSelector(selectCurrentUser);
@@ -22,18 +23,7 @@ const Header = () => {
   const totalItems = cart?.items.length ?? 0;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setShowResults(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  useClickOutside(searchRef, () => setShowResults(false), showResults);
 
   const handleInputChange = (e) => {
     setSearch(e.target.value);
