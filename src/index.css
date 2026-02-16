@@ -13,6 +13,7 @@
 
 :root {
   --background-color: hsl(39, 90%, 50%);
+  --root-background-color: hsla(0, 0%, 70%, 0.227);
   --text-color: black;
 }
 body {
