@@ -13,6 +13,11 @@ import { useSelector } from "react-redux";
 import { useToast } from "../../Context/ToastContext";
 
 const Profile = () => {
+  const fileRef = useRef();
+  const { triggerToast } = useToast();
+  const User = useSelector(selectCurrentUser);
+  const genders = ["Male", "Female", "Other"];
+
   const [imageSrc, setImageSrc] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
@@ -32,11 +37,6 @@ const Profile = () => {
   });
   const [updateUser, { isLoading, isError, isSuccess }] =
     useUpdateUserMutation();
-
-  const fileRef = useRef();
-  const { triggerToast } = useToast();
-  const User = useSelector(selectCurrentUser);
-  const genders = ["Male", "Female", "Other"];
 
   useEffect(() => {
     if (data?.data) {
