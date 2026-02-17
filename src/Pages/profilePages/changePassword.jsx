@@ -1,6 +1,9 @@
 import ProfileLayout from "../../Components/ProfileLayout";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import "../../Styles/changePassword.css";
+import { useChangePasswordMutation } from "../../features/auth/authApiSlice";
+import { useToast } from "../../Context/ToastContext";
+import { useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [cPwd, setCPwd] = useState(false);
@@ -12,8 +15,29 @@ const ChangePassword = () => {
   const [ShowNewPwd, setShowNewPwd] = useState(false);
   const [ShowConfirmPwd, setShowConfirmPwd] = useState(false);
 
-  const onSubmit = () => {
-    console.log();
+  const { triggerToast } = useToast();
+  const [changePwd, { isLoading }] = useChangePasswordMutation();
+  const navigate = useNavigate();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (newPwd !== confirmPwd) {
+        return triggerToast(
+          "new password and Confirm password Do not match!",
+          "error",
+        );
+      }
+
+      await changePwd({ currentPwd, newPwd }).unwrap();
+
+      console.log("success");
+      triggerToast("Password Change", "success");
+      navigate("/profile");
+    } catch (err) {
+      console.log(err);
+      triggerToast(err?.data?.message || "Password change failed", "error");
+    }
   };
   return (
     <ProfileLayout>
@@ -40,7 +64,7 @@ const ChangePassword = () => {
         )}
         {cPwd && (
           <>
-            <form className="change-password-form">
+            <form className="change-password-form" onSubmit={onSubmit}>
               <label htmlFor="currentPwd">Current Password: </label>
               <div className="change-pwd-input">
                 <input
@@ -105,12 +129,13 @@ const ChangePassword = () => {
               </div>
               <div className="cancel-confirm-buttons">
                 <button
+                  type="button"
                   onClick={() => setCPwd(false)}
                   className="cpwd-button-cancel"
                 >
                   Cancel
                 </button>
-                <button onClick={() => setCPwd(false)} className="cpwd-button">
+                <button type="submit" className="cpwd-button">
                   Confirm
                 </button>
               </div>
