@@ -19,6 +19,13 @@ const ChangePassword = () => {
   const [changePwd, { isLoading }] = useChangePasswordMutation();
   const navigate = useNavigate();
 
+  const onCancel = () => {
+    setCPwd(false);
+    setConfirmPwd("");
+    setCurrentPwd("");
+    setNewPwd("");
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -130,7 +137,7 @@ const ChangePassword = () => {
               <div className="cancel-confirm-buttons">
                 <button
                   type="button"
-                  onClick={() => setCPwd(false)}
+                  onClick={onCancel}
                   className="cpwd-button-cancel"
                 >
                   Cancel
