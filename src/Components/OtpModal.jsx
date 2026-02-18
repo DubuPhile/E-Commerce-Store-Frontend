@@ -41,13 +41,13 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
     }
   };
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     const otpValue = otp.join("");
     if (otpValue.length < 6) {
       setError("Please enter all 6 digits");
       return;
     }
-    const success = onVerify(otpValue);
+    const success = await onVerify(otpValue);
     if (!success) setError("Invalid OTP");
   };
 
