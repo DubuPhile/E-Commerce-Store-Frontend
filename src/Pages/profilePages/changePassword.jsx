@@ -2,8 +2,13 @@ import ProfileLayout from "../../Components/ProfileLayout";
 import { useState } from "react";
 import "../../Styles/changePassword.css";
 import { useChangePasswordMutation } from "../../features/auth/authApiSlice";
+import {
+  useSendOTPMutation,
+  useVerifyOTPMutation,
+} from "../../features/otp/otpApiSlice";
 import { useToast } from "../../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
+import OTPModal from "../../Components/OtpModal";
 
 const ChangePassword = () => {
   const [cPwd, setCPwd] = useState(false);
@@ -14,9 +19,12 @@ const ChangePassword = () => {
   const [ShowCurrentPwd, setShowCurrentPwd] = useState(false);
   const [ShowNewPwd, setShowNewPwd] = useState(false);
   const [ShowConfirmPwd, setShowConfirmPwd] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(false);
 
   const { triggerToast } = useToast();
-  const [changePwd, { isLoading }] = useChangePasswordMutation();
+  const [changePwd] = useChangePasswordMutation();
+  const [sendOTP] = useSendOTPMutation();
+  const [verifyOTP] = useVerifyOTPMutation();
   const navigate = useNavigate();
 
   const onCancel = () => {
@@ -24,6 +32,29 @@ const ChangePassword = () => {
     setConfirmPwd("");
     setCurrentPwd("");
     setNewPwd("");
+  };
+
+  const onChangePwd = async (e) => {
+    e.preventDefault();
+    try {
+      sendOTP({ type: "CHANGE_PASSWORD" }).unwrap();
+      setShowOtpModal(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleVerifyOtp = async (otp) => {
+    try {
+      await verifyOTP({ otp }).unwrap();
+      setCPwd(true);
+      setShowOtpModal(false);
+
+      triggerToast("OTP Verified", "success");
+    } catch (err) {
+      console.log(err);
+      triggerToast(`${err?.data?.message || "Something went wrong!"}`, "error");
+    }
   };
 
   const onSubmit = async (e) => {
@@ -64,7 +95,7 @@ const ChangePassword = () => {
                 readOnly
               />
             </form>
-            <button onClick={() => setCPwd(true)} className="cpwd-button">
+            <button onClick={onChangePwd} className="cpwd-button">
               Change Password
             </button>
           </>
@@ -149,6 +180,11 @@ const ChangePassword = () => {
             </form>
           </>
         )}
+        <OTPModal
+          isOpen={showOtpModal}
+          onClose={() => setShowOtpModal(false)}
+          onVerify={handleVerifyOtp}
+        />
       </section>
     </ProfileLayout>
   );
