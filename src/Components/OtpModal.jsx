@@ -72,6 +72,7 @@ const OTPModal = ({ isOpen, onClose, onVerify }) => {
                 <input
                   key={idx}
                   id={idx}
+                  autoComplete="off"
                   type="text"
                   maxLength="1"
                   value={digit}
