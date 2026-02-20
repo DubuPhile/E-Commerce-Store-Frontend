@@ -5,6 +5,7 @@ import { useLoginMutation } from "../features/auth/authApiSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
 import { useToast } from "../Context/ToastContext";
+import FirebaseLogin from "../Components/FirebaseLogin";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
@@ -103,6 +104,12 @@ const LoginPage = () => {
                 <Link to="/register">Don't have an Account?</Link>
               </div>
             </form>
+
+            <div className="divider">
+              <span>OR</span>
+            </div>
+
+            <FirebaseLogin />
           </>
         )}
       </div>
