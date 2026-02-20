@@ -118,3 +118,25 @@
 .offscreen {
   display: none;
 }
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 300px;
+  padding: 15px;
+  animation: slideUp 1s ease-out forwards;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ffffff;
+  z-index: 9999;
+}
+
+.divider span {
+  padding: 0 10px;
+  font-weight: bold;
+}
