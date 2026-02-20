@@ -29,10 +29,11 @@ html {
 }
 
 .spinner {
-  height: 65vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 9999;
 }
 
