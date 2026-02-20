@@ -2,17 +2,19 @@ import { profileMenu } from "../data/sidebarMenu";
 import { useState } from "react";
 import "../Styles/profileSidebar.css";
 import { NavLink } from "react-router-dom";
+import { hasLocalPassword } from "../features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 const ProfileSideBar = () => {
   const [openMenu, setOpenMenu] = useState("profile");
-
+  const hasLocalPass = useSelector(hasLocalPassword);
   const handleParentClick = (id) => {
     setOpenMenu(openMenu === id ? null : id);
   };
 
   return (
     <aside className="sidebar">
-      {profileMenu.map((item) => (
+      {profileMenu(hasLocalPass).map((item) => (
         <nav key={item.id}>
           <div
             className={`sidebar-item ${openMenu === item.id ? "active" : ""}`}
