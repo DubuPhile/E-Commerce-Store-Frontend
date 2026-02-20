@@ -74,6 +74,7 @@
   background-color: transparent;
   border: none;
   display: inline-block;
+  margin-left: 10px;
 }
 
 .count {
