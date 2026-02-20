@@ -9,6 +9,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
     }),
+    firebaseLogin: builder.mutation({
+      query: (token) => ({
+        url: "/user/firebase-login",
+        method: "POST",
+        body: token,
+      }),
+    }),
     register: builder.mutation({
       query: (data) => ({
         url: "/user/register",
@@ -55,6 +62,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
+  useFirebaseLoginMutation,
   useLoginMutation,
   useLogoutMutation,
   useRefreshMutation,
