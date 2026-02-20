@@ -41,7 +41,7 @@ const LoginPage = () => {
         user: username,
         password: password,
       }).unwrap();
-      dispatch(setCredentials({ ...userData, username }));
+      dispatch(setCredentials({ userData }));
       setUsername("");
       setPassword("");
       navigate("/");
