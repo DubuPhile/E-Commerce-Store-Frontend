@@ -1,4 +1,4 @@
-export const profileMenu = [
+export const profileMenu = (hasLocalPassword) => [
   {
     id: "profile",
     label: "Profile",
@@ -9,8 +9,10 @@ export const profileMenu = [
       { id: "addresses", label: "Addresses", path: "/Addresses" },
       {
         id: "password",
-        label: "Change Password",
-        path: "/profile/change-password",
+        label: hasLocalPassword ? "Change Password" : "Set Password",
+        path: hasLocalPassword
+          ? "/profile/change-password"
+          : "/profile/set-password",
       },
       { id: "privacy", label: "Privacy Settings", path: "/privacy-settings" },
     ],
