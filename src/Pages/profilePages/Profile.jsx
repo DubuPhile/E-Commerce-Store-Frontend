@@ -11,7 +11,7 @@ import ImageCropperModal from "../../Components/ImageCropperModal";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { useSelector } from "react-redux";
 import { useToast } from "../../Context/ToastContext";
-import Spinner from "../../Components/Loading";
+import Spinner from "../../Components/Spinner";
 
 const Profile = () => {
   const fileRef = useRef();
