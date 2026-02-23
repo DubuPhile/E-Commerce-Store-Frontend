@@ -41,7 +41,14 @@ const LoginPage = () => {
         user: username,
         password: password,
       }).unwrap();
-      dispatch(setCredentials({ userData }));
+      dispatch(
+        setCredentials({
+          user: userData.user,
+          token: userData.accessToken,
+          roles: userData.roles,
+          hasLocalPassword: userData.hasLocalPassword,
+        }),
+      );
       setUsername("");
       setPassword("");
       navigate("/");
