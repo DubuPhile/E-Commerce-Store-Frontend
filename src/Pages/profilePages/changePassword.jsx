@@ -9,7 +9,7 @@ import {
 import { useToast } from "../../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
 import OTPModal from "../../Components/OtpModal";
-import Spinner from "../../Components/Loading";
+import Spinner from "../../Components/Spinner";
 
 const ChangePassword = () => {
   const [cPwd, setCPwd] = useState(false);
@@ -38,7 +38,7 @@ const ChangePassword = () => {
   const onChangePwd = async (e) => {
     e.preventDefault();
     try {
-      sendOTP({ type: "CHANGE_PASSWORD" }).unwrap();
+      await sendOTP({ type: "CHANGE_PASSWORD" }).unwrap();
       setShowOtpModal(true);
     } catch (err) {
       console.log(err);
@@ -82,7 +82,15 @@ const ChangePassword = () => {
     <ProfileLayout>
       <section className="cpwd-body">
         {isChangingPwd || isVerifyingOTP || isSendingOTP ? (
-          <Spinner />
+          <Spinner
+            message={
+              isVerifyingOTP
+                ? "Verifying OTP..."
+                : isSendingOTP
+                  ? "Sending OTP..."
+                  : "Changing password..."
+            }
+          />
         ) : (
           <>
             <h4> Change Password </h4>
