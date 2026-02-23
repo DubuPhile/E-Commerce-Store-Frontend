@@ -12,7 +12,7 @@ import useClickOutside from "../hooks/useClickOutside";
 
 const DropdownUser = () => {
   const User = useSelector(selectCurrentUser);
-  const { data } = useGetUserQuery(User, {
+  const { data } = useGetUserQuery(undefined, {
     skip: !User,
     refetchOnMountOrArgChange: true,
   });

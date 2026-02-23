@@ -36,7 +36,7 @@ const Profile = () => {
     data,
     refetch,
     isLoading: isGettingUser,
-  } = useGetUserQuery(User, {
+  } = useGetUserQuery(undefined, {
     skip: !User,
     refetchOnMountOrArgChange: true,
   });
