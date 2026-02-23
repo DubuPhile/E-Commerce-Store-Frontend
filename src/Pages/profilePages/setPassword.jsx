@@ -8,7 +8,10 @@ import { useToast } from "../../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import OTPModal from "../../Components/OtpModal";
-import Spinner from "../../Components/Loading";
+import Spinner from "../../Components/Spinner";
+import { useSetPasswordMutation } from "../../features/auth/authApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../features/auth/authSlice";
 
 const setPassword = () => {
   const [newPwd, setNewPwd] = useState("");
@@ -22,7 +25,9 @@ const setPassword = () => {
   const { triggerToast } = useToast();
   const [sendOTP, { isLoading: isSendingOTP }] = useSendOTPMutation();
   const [verifyOTP, { isLoading: isVerifyingOTP }] = useVerifyOTPMutation();
+  const [setPassword, { isLoading: isSettingPwd }] = useSetPasswordMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onCancel = () => {
     setSPwd(false);
@@ -30,10 +35,10 @@ const setPassword = () => {
     setNewPwd("");
   };
 
-  const onSetPwd = (e) => {
+  const onSetPwd = async (e) => {
     e.preventDefault();
     try {
-      sendOTP({ type: "SET_PASSWORD" }).unwrap();
+      await sendOTP({ type: "SET_PASSWORD" }).unwrap();
       setShowOtpModal(true);
     } catch (err) {
       console.log(err);
@@ -53,13 +58,43 @@ const setPassword = () => {
     }
   };
 
-  const onSubmit = () => {};
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (newPwd !== confirmPwd) {
+        return triggerToast(
+          "new password and Confirm password Do not match!",
+          "error",
+        );
+      }
+      await setPassword({
+        newPassword: newPwd,
+        confirmPassword: confirmPwd,
+      }).unwrap();
+      setNewPwd("");
+      setConfirmPwd("");
+      dispatch(setCredentials({ hasLocalPassword: true }));
+      triggerToast("Set Password Successfully!", "success");
+      navigate("/profile");
+    } catch (err) {
+      console.log(err);
+      triggerToast(`${err?.data?.message || "Something went wrong!"}`, "error");
+    }
+  };
 
   return (
     <ProfileLayout>
       <section className="cpwd-body">
-        {isVerifyingOTP || isSendingOTP ? (
-          <Spinner />
+        {isVerifyingOTP || isSendingOTP || isSettingPwd ? (
+          <Spinner
+            message={
+              isVerifyingOTP
+                ? "Verifying OTP..."
+                : isSendingOTP
+                  ? "Sending OTP..."
+                  : "Setting password..."
+            }
+          />
         ) : (
           <>
             <h4> Set Password(Optional) </h4>
