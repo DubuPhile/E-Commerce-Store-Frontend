@@ -58,6 +58,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: Data,
       }),
     }),
+    setPassword: builder.mutation({
+      query: (Data) => ({
+        url: "/user/set-password",
+        method: "PATCH",
+        body: Data,
+      }),
+    }),
   }),
 });
 
@@ -70,4 +77,5 @@ export const {
   useGetUserQuery,
   useUpdateUserMutation,
   useChangePasswordMutation,
+  useSetPasswordMutation,
 } = authApiSlice;
