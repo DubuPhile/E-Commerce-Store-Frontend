@@ -18,14 +18,7 @@ const FirebaseLogin = () => {
       const token = await user.getIdToken();
 
       const userData = await firebaseLogin({ token }).unwrap();
-      dispatch(
-        setCredentials({
-          user: userData.user,
-          token: userData.accessToken,
-          roles: userData.roles,
-          hasLocalPassword: userData.hasLocalPassword,
-        }),
-      );
+      dispatch(setCredentials({ userData }));
       navigate("/");
     } catch (err) {
       console.log(err);
