@@ -15,7 +15,7 @@
 .cart-item {
   display: grid;
   align-items: center;
-  grid-template-columns: 4fr 3fr 1fr 1fr;
+  grid-template-columns: 1fr 5fr 2fr 1fr 1fr;
   gap: 0.5rem;
   margin-bottom: 0.5em;
 }
@@ -76,7 +76,7 @@
   }
 
   .cart-item {
-    grid-template-columns: 3fr 15fr 5fr 1fr 8fr 1fr;
+    grid-template-columns: 1fr 2fr 3fr 2fr 1fr 2fr 1fr;
   }
 
   .cart-img,
@@ -87,4 +87,54 @@
   .cart-submit {
     max-width: 300px;
   }
+}
+
+.round-checkbox {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+}
+
+.round-checkbox input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.round-checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.round-checkbox input:checked + .checkmark {
+  background-color: var(--background-color);
+}
+
+.round-checkbox .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.round-checkbox input:checked + .checkmark::after {
+  display: block;
+}
+
+.round-checkbox .checkmark::after {
+  left: 6px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }
