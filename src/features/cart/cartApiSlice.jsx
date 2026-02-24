@@ -29,6 +29,14 @@ const cartApiSplice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Cart"],
     }),
+    changeCheckBox: builder.mutation({
+      query: ({ itemId, checkBox }) => ({
+        url: `/cart/changeCheckBox/${itemId}`,
+        method: "PUT",
+        body: { checkBox },
+      }),
+      invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
@@ -37,4 +45,5 @@ export const {
   useGetMyCartQuery,
   useDeleteCartItemMutation,
   useChangeQuantityMutation,
+  useChangeCheckBoxMutation,
 } = cartApiSplice;
