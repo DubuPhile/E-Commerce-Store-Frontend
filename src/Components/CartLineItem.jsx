@@ -1,15 +1,13 @@
 import {
   useDeleteCartItemMutation,
-  useChangeQuantityMutation,
-  useChangeCheckBoxMutation,
+  useHandleCartActionMutation,
 } from "../features/cart/cartApiSlice";
 import { useNavigate } from "react-router-dom";
 
 const CartLineItem = ({ item }) => {
   const navigate = useNavigate();
   const [deleteCartItem] = useDeleteCartItemMutation();
-  const [updateCartQty] = useChangeQuantityMutation();
-  const [changeCheckBox] = useChangeCheckBoxMutation();
+  const [handleCartAction] = useHandleCartActionMutation();
   const img = item.product?.imageUrl;
   const lineTotal = item.quantity * item.product?.price;
   const highestQty = Math.max(20, item.quantity);
@@ -21,18 +19,6 @@ const CartLineItem = ({ item }) => {
       </option>
     );
   });
-
-  const onChangeQty = async (value) => {
-    try {
-      await updateCartQty({
-        itemId: value.itemId,
-        quantity: value.quantity,
-      }).unwrap();
-    } catch (err) {
-      console.error("Failed to update quantity");
-    }
-  };
-
   const onRemoveFromCart = async (productId) => {
     try {
       await deleteCartItem(productId).unwrap();
@@ -42,10 +28,23 @@ const CartLineItem = ({ item }) => {
     }
   };
 
-  const onChangeCheckbox = async (value) => {
+  const onChangeQty = async (value) => {
     try {
-      await changeCheckBox({
+      await handleCartAction({
         itemId: value.itemId,
+        action: "updateQty",
+        quantity: value.quantity,
+      }).unwrap();
+    } catch (err) {
+      console.error("Failed to update quantity");
+    }
+  };
+
+  const onToggleCheckbox = async (value) => {
+    try {
+      await handleCartAction({
+        itemId: value.itemId,
+        action: "toggleCheckbox",
         checkBox: value.checkBox,
       }).unwrap();
     } catch (err) {
@@ -60,7 +59,7 @@ const CartLineItem = ({ item }) => {
           type="checkbox"
           checked={item?.checkBox}
           onChange={(e) =>
-            onChangeCheckbox({
+            onToggleCheckbox({
               itemId: item._id,
               checkBox: e.target.checked,
             })
