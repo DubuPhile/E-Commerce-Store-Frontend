@@ -1,11 +1,15 @@
 import {
   useDeleteCartItemMutation,
   useChangeQuantityMutation,
+  useChangeCheckBoxMutation,
 } from "../features/cart/cartApiSlice";
+import { useNavigate } from "react-router-dom";
 
 const CartLineItem = ({ item }) => {
+  const navigate = useNavigate();
   const [deleteCartItem] = useDeleteCartItemMutation();
   const [updateCartQty] = useChangeQuantityMutation();
+  const [changeCheckBox] = useChangeCheckBoxMutation();
   const img = item.product?.imageUrl;
   const lineTotal = item.quantity * item.product?.price;
   const highestQty = Math.max(20, item.quantity);
@@ -38,10 +42,39 @@ const CartLineItem = ({ item }) => {
     }
   };
 
+  const onChangeCheckbox = async (value) => {
+    try {
+      await changeCheckBox({
+        itemId: value.itemId,
+        checkBox: value.checkBox,
+      }).unwrap();
+    } catch (err) {
+      console.error("Failed to update quantity");
+    }
+  };
+
   return (
     <li className="cart-item">
+      <label key={item._id} className="round-checkbox">
+        <input
+          type="checkbox"
+          checked={item?.checkBox}
+          onChange={(e) =>
+            onChangeCheckbox({
+              itemId: item._id,
+              checkBox: e.target.checked,
+            })
+          }
+        />
+        <span className="checkmark"></span>
+      </label>
       <img src={img} alt={item.name} className="cart-img" />
-      <div aria-label="Item name">{item.product?.name}</div>
+      <div
+        aria-label="Item name"
+        onClick={() => navigate(`/product-details/${item.product?._id}`)}
+      >
+        {item.product?.name}
+      </div>
       <div aria-label="Price per Item">
         {new Intl.NumberFormat("en-US", {
           style: "currency",
