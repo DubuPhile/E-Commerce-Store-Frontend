@@ -18,6 +18,12 @@ export const profileMenu = (hasLocalPassword) => [
     ],
   },
   {
+    id: "Orders",
+    label: "Orders",
+    icon: "fa-bag-shopping",
+    path: "/orders",
+  },
+  {
     id: "notifications",
     label: "Notifications",
     icon: "fa-bell",
