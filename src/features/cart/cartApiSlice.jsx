@@ -4,6 +4,7 @@ const cartApiSplice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMyCart: builder.query({
       query: () => "/cart/get-my-cart",
+      credentials: "include",
       providesTags: ["Cart"],
     }),
     addToCart: builder.mutation({
@@ -11,6 +12,7 @@ const cartApiSplice = apiSlice.injectEndpoints({
         url: "/cart/add-to-cart",
         method: "POST",
         body: { productId, quantity },
+        credentials: "include",
       }),
       invalidatesTags: ["Cart"],
     }),
@@ -18,6 +20,7 @@ const cartApiSplice = apiSlice.injectEndpoints({
       query: (productId) => ({
         url: `/cart/delete-item/${productId}`,
         method: "DELETE",
+        credentials: "include",
       }),
       invalidatesTags: ["Cart"],
     }),
@@ -26,6 +29,7 @@ const cartApiSplice = apiSlice.injectEndpoints({
         url: `/cart/handleCartAction/${itemId}`,
         method: "PUT",
         body: { action, quantity, checkBox },
+        credentials: "include",
       }),
       invalidatesTags: ["Cart"],
     }),
