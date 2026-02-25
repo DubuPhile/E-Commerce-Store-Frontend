@@ -2,12 +2,17 @@ import { useState, useEffect } from "react";
 import Layout from "../Components/Layout";
 import CartLineItem from "../Components/CartLineItem";
 import { useGetMyCartQuery } from "../features/cart/cartApiSlice";
+import { useConfirmOrderMutation } from "../features/order/orderApiSlice";
 import "../Styles/cart.css";
+import { useToast } from "../Context/ToastContext";
 
 const CartPage = () => {
+  const { triggerToast } = useToast();
   const [confirm, setConfirm] = useState(false);
   const [cart, setCart] = useState([]);
-  const { data: MyCart, error, isLoading } = useGetMyCartQuery();
+  const { data: MyCart, isLoading } = useGetMyCartQuery();
+  const [confirmOrder] = useConfirmOrderMutation();
+  const checkBoxItem = cart.filter((item) => item.checkBox === true);
 
   let pageContent = "";
 
@@ -19,11 +24,11 @@ const CartPage = () => {
 
   if (isLoading) return (pageContent = <p>Loading...</p>);
 
-  const totalItems = cart.reduce((total, item) => {
+  const totalItems = checkBoxItem.reduce((total, item) => {
     return total + item.quantity;
   }, 0);
 
-  const totalPrice = cart.reduce((total, item) => {
+  const totalPrice = checkBoxItem.reduce((total, item) => {
     return total + item.quantity * item.product?.price;
   }, 0);
 
@@ -31,8 +36,15 @@ const CartPage = () => {
     a.product.name.localeCompare(b.product.name),
   );
 
-  const onSubmitOrder = () => {
-    setConfirm(true);
+  const onSubmitOrder = async () => {
+    try {
+      await confirmOrder({ totalPrice, products: checkBoxItem }).unwrap();
+      triggerToast("Order Placed!", "success");
+      setConfirm(true);
+    } catch (err) {
+      console.log(err);
+      triggerToast(`${err.data?.message || "Error to Place Order"}`, "error");
+    }
   };
 
   pageContent = confirm ? (
