@@ -1,15 +1,43 @@
 import { profileMenu } from "../data/sidebarMenu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../Styles/profileSidebar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { hasLocalPassword } from "../features/auth/authSlice";
 import { useSelector } from "react-redux";
 
 const ProfileSideBar = () => {
-  const [openMenu, setOpenMenu] = useState("profile");
+  const navigate = useNavigate();
+  const [openMenu, setOpenMenu] = useState(null);
   const hasLocalPass = useSelector(hasLocalPassword);
-  const handleParentClick = (id) => {
-    setOpenMenu(openMenu === id ? null : id);
+  const location = useLocation();
+
+  useEffect(() => {
+    const menu = profileMenu(hasLocalPass);
+
+    const activeItem = menu.find((item) => {
+      if (item.path && location.pathname.startsWith(item.path)) {
+        return true;
+      }
+
+      if (
+        item.children?.some((child) => location.pathname.startsWith(child.path))
+      ) {
+        return true;
+      }
+
+      return false;
+    });
+
+    if (activeItem) {
+      setOpenMenu(activeItem.id);
+    }
+  }, [location.pathname, hasLocalPass]);
+  const handleParentClick = (item) => {
+    if (item.children) {
+      setOpenMenu((prev) => (prev === item.id ? null : item.id));
+    } else if (item.path) {
+      navigate(item.path);
+    }
   };
 
   return (
@@ -18,7 +46,7 @@ const ProfileSideBar = () => {
         <nav key={item.id}>
           <div
             className={`sidebar-item ${openMenu === item.id ? "active" : ""}`}
-            onClick={() => handleParentClick(item.id)}
+            onClick={() => handleParentClick(item)}
           >
             <div className="left">
               <i className={`fa-solid ${item.icon}`}></i>
