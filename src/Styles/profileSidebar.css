@@ -65,9 +65,9 @@
   transform: translateY(-5px);
   overflow: hidden;
   transition:
-    max-height 0.35s ease,
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    max-height 0.3s ease,
+    opacity 0.1s ease,
+    transform 0.1s ease;
 }
 
 .submenu-wrapper.open {
