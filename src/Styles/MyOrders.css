@@ -3,6 +3,7 @@
   display: inline-block;
   width: 100%;
   max-width: 600px;
+  min-height: 65vh;
 }
 .tab-buttons button {
   border: none;
