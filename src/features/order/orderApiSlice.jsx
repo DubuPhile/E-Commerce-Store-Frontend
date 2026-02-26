@@ -11,7 +11,14 @@ const orderApiSplice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Cart"],
     }),
+    getOrder: builder.query({
+      query: () => ({
+        url: "/order/get-orders",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useConfirmOrderMutation } = orderApiSplice;
+export const { useConfirmOrderMutation, useGetOrderQuery } = orderApiSplice;
