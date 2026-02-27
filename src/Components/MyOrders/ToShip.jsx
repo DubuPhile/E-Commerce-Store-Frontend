@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useGetOrderQuery } from "../../features/order/orderApiSlice";
+import empty from "../../assets/empty-box.png";
 
-const processing = () => {
+const toShipped = () => {
   const { data, isLoading } = useGetOrderQuery();
 
   const [orders, setOrders] = useState([]);
@@ -13,7 +14,12 @@ const processing = () => {
 
   return (
     <section className="proccessing-body">
-      {Array.isArray(orders) &&
+      {orders.length === 0 ? (
+        <div className="empty-orders">
+          <img src={empty} />
+          <h6>No To Shipped Orders</h6>
+        </div>
+      ) : (
         orders?.map((order) => (
           <div className="order-style" key={order._id}>
             <h4>{order.orderNumber}</h4>
@@ -53,9 +59,10 @@ const processing = () => {
               </p>
             )}
           </div>
-        ))}
+        ))
+      )}
     </section>
   );
 };
 
-export default processing;
+export default toShipped;
