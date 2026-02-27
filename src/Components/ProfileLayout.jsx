@@ -1,14 +1,16 @@
-import Layout from "./Layout";
 import ProfileSideBar from "./ProfileSideBar";
+import { Outlet } from "react-router-dom";
 
-const ProfileLayout = ({ children }) => {
+const ProfileLayout = () => {
   return (
-    <Layout>
+    <>
       <div className="profile-layout">
         <ProfileSideBar />
-        <div className="profile-body">{children}</div>
+        <div className="profile-body">
+          <Outlet />
+        </div>
       </div>
-    </Layout>
+    </>
   );
 };
 
