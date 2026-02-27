@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../features/products/productsApiSlice";
-import Layout from "../Components/Layout";
 import "../Styles/prodDescription.css";
 import BuyPhase from "../Components/BuyPhase";
 
@@ -43,11 +42,7 @@ const prodDescriptionPage = () => {
     );
   }
 
-  return (
-    <>
-      <Layout>{pageContent}</Layout>
-    </>
-  );
+  return <>{pageContent}</>;
 };
 
 export default prodDescriptionPage;

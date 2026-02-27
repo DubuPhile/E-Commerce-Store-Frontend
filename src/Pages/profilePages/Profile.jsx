@@ -1,4 +1,3 @@
-import ProfileLayout from "../../Components/ProfileLayout";
 import "../../Styles/profile.css";
 import { useState, useEffect, useRef } from "react";
 import {
@@ -95,7 +94,7 @@ const Profile = () => {
   };
 
   return (
-    <ProfileLayout>
+    <>
       {isUpdatingUser || isGettingUser ? (
         <Spinner />
       ) : (
@@ -254,7 +253,7 @@ const Profile = () => {
           </form>
         </section>
       )}
-    </ProfileLayout>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-import ProfileLayout from "../../Components/ProfileLayout";
 import { useState } from "react";
 import "../../Styles/changePassword.css";
 import { useChangePasswordMutation } from "../../features/auth/authApiSlice";
@@ -79,7 +78,7 @@ const ChangePassword = () => {
     }
   };
   return (
-    <ProfileLayout>
+    <>
       <section className="cpwd-body">
         {isChangingPwd || isVerifyingOTP || isSendingOTP ? (
           <Spinner
@@ -201,7 +200,7 @@ const ChangePassword = () => {
           </>
         )}
       </section>
-    </ProfileLayout>
+    </>
   );
 };
 

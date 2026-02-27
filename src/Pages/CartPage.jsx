@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Layout from "../Components/Layout";
 import CartLineItem from "../Components/CartLineItem";
 import { useGetMyCartQuery } from "../features/cart/cartApiSlice";
 import { useConfirmOrderMutation } from "../features/order/orderApiSlice";
@@ -77,9 +76,9 @@ const CartPage = () => {
     </>
   );
   return (
-    <Layout>
+    <>
       <main className="main main-cart">{pageContent}</main>
-    </Layout>
+    </>
   );
 };
 

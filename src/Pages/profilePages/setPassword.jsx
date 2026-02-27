@@ -1,4 +1,3 @@
-import ProfileLayout from "../../Components/ProfileLayout";
 import "../../Styles/changePassword.css";
 import {
   useSendOTPMutation,
@@ -83,7 +82,7 @@ const setPassword = () => {
   };
 
   return (
-    <ProfileLayout>
+    <>
       <section className="cpwd-body">
         {isVerifyingOTP || isSendingOTP || isSettingPwd ? (
           <Spinner
@@ -177,7 +176,7 @@ const setPassword = () => {
           </>
         )}
       </section>
-    </ProfileLayout>
+    </>
   );
 };
 
