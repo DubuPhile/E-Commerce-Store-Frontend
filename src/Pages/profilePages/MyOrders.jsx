@@ -1,13 +1,13 @@
-import ProfileLayout from "../../Components/ProfileLayout";
 import { useState } from "react";
 import "../../Styles/MyOrders.css";
 import processing from "../../Components/MyOrders/processing";
-import ToShip from "../../Components/MyOrders/ToShip";
+import toShipped from "../../Components/MyOrders/ToShip";
+import toComplete from "../../Components/MyOrders/toComplete";
 
 const tabs = [
   { id: "processing", label: "Processing", component: processing },
-  { id: "ship", label: "To Ship", component: ToShip },
-  { id: "completed", label: "Completed", component: "" },
+  { id: "ship", label: "To Ship", component: toShipped },
+  { id: "completed", label: "Completed", component: toComplete },
 ];
 
 const MyOrders = () => {
@@ -15,7 +15,7 @@ const MyOrders = () => {
 
   const ActiveComponent = tabs.find((tab) => tab.id === activeTab)?.component;
   return (
-    <ProfileLayout>
+    <>
       <section className="order-body">
         <nav className="tab-buttons">
           {tabs.map((tab) => (
@@ -33,7 +33,7 @@ const MyOrders = () => {
           {ActiveComponent && <ActiveComponent />}
         </section>
       </section>
-    </ProfileLayout>
+    </>
   );
 };
 
