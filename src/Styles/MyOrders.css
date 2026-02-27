@@ -47,6 +47,9 @@
 .order-status.toshipped {
   background-color: #e6f7ff;
 }
+.order-status.delivered {
+  background-color: #5cb85c;
+}
 .prod-style {
   display: flex;
   flex-direction: row;
@@ -83,4 +86,18 @@
   align-items: center;
   justify-content: flex-end;
   border-top: 1px solid;
+}
+
+.empty-orders {
+  margin: 10px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+  justify-content: center;
+  flex-direction: column;
+  height: 400px;
+}
+.empty-orders img {
+  width: 150px;
 }
