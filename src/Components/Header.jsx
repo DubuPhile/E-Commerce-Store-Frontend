@@ -12,7 +12,9 @@ import useClickOutside from "../hooks/useClickOutside";
 const Header = () => {
   const User = useSelector(selectCurrentUser);
   const [search, setSearch] = useState("");
-  const { data: cart } = useGetMyCartQuery();
+  const { data: cart } = useGetMyCartQuery(undefined, {
+    skip: !User,
+  });
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef(null);
 
