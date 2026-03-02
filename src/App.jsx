@@ -41,8 +41,8 @@ function App() {
                   <Route path="bank" element={<Bank />} />
                 </Route>
                 <Route path="orders" element={<MyOrders />} />
-                <Route path="cart" element={<CartPage />} />
               </Route>
+              <Route path="cart" element={<CartPage />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
