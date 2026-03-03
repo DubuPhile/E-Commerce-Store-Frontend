@@ -3,6 +3,7 @@ import {
   selectCurrentRoles,
   selectCurrentToken,
   selectCurrentUser,
+  hasLocalPassword,
 } from "../features/auth/authSlice";
 
 const useAuth = () => {
@@ -10,6 +11,7 @@ const useAuth = () => {
     token: useSelector(selectCurrentToken),
     user: useSelector(selectCurrentUser),
     roles: useSelector(selectCurrentRoles),
+    hasLocalPassword: useSelector(hasLocalPassword),
   };
   return { auth };
 };
