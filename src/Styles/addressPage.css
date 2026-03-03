@@ -1,0 +1,51 @@
+.address-main {
+  margin: 10px;
+  height: 65vh;
+}
+
+/* Add New Address Modal css*/
+.modal-header {
+  background-color: var(--background-color);
+}
+.address-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
+  width: 90%;
+}
+.address-form div {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+.address-form label {
+  font-family: Arial, Helvetica, sans-serif;
+  padding-right: 10px;
+}
+.address-form input {
+  border: none;
+  background-color: bisque;
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 5px;
+  width: 70%;
+  outline: none;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+.address-form span {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+  padding-right: 30px;
+}
+.address-form input.set-default-radio {
+  box-shadow: none;
+  margin-right: 5px;
+}
+.address-form label.radio-label {
+  display: flex;
+  margin-right: 20px;
+}
