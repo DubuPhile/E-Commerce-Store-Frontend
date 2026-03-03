@@ -72,6 +72,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: Data,
       }),
     }),
+    getAddresses: builder.query({
+      query: () => ({
+        url: "/user/get-address",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -86,4 +93,5 @@ export const {
   useChangePasswordMutation,
   useSetPasswordMutation,
   useAddAddressMutation,
+  useGetAddressesQuery,
 } = authApiSlice;
