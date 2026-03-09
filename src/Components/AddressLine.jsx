@@ -1,10 +1,10 @@
-const AddressLine = ({ address }) => {
+const AddressLine = ({ address, onEdit }) => {
   return (
     <section className="address-line-main">
       <div className="address-name-line">
         <h5>{address.fullName}</h5>
         <span>{address.phone}</span>
-        <button>Edit</button>
+        <button onClick={onEdit}>Edit</button>
       </div>
       <div className="address-line">
         <p>
