@@ -1,6 +1,6 @@
 .address-main {
   margin: 10px;
-  height: 65vh;
+  height: 100%;
 }
 
 /* Add New Address Modal css*/
@@ -48,4 +48,63 @@
 .address-form label.radio-label {
   display: flex;
   margin-right: 20px;
+}
+
+.address-line-main {
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid;
+  margin: 10px;
+  width: 420px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+.address-name-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+}
+.address-name-line :first-child {
+  margin: 0;
+  width: 200px;
+  font-size: 20px;
+}
+.address-name-line span {
+  color: grey;
+}
+.address-name-line button {
+  margin: 0;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  color: blue;
+}
+.address-name-line button:hover {
+  background-color: var(--background-color);
+  border-radius: 50%;
+  padding: 5px;
+}
+.address-line {
+  padding: 0;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+}
+.address-line p {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 3px;
+  width: 250px;
+}
+.address-line span {
+  background-color: rgb(182, 182, 182);
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 0;
+  border-radius: 10px;
 }
