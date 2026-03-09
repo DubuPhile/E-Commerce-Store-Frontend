@@ -3,6 +3,38 @@
   height: 100%;
 }
 
+.add-address-button {
+  border: none;
+  width: 400px;
+  padding: 10px;
+  margin-left: 20px;
+}
+.delete-address-button {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin-left: 20px;
+  padding: 5px;
+  margin-left: 50px;
+  width: 50%;
+}
+.delete-address-button:hover {
+  background-color: hsl(0, 0%, 80%);
+}
+.delete-address-button:active {
+  background-color: hsl(0, 0%, 70%);
+}
+.delete-address-button i {
+  padding-right: 10px;
+}
+.add-address-button:hover {
+  background-color: hsl(0, 0%, 80%);
+}
+.add-address-button:active {
+  background-color: hsl(0, 0%, 60%);
+}
 /* Add New Address Modal css*/
 .modal-header {
   background-color: var(--background-color);
@@ -82,6 +114,11 @@
 }
 .address-name-line button:hover {
   background-color: var(--background-color);
+  border-radius: 50%;
+  padding: 5px;
+}
+.address-name-line button:active {
+  background-color: hsl(39, 90%, 70%);
   border-radius: 50%;
   padding: 5px;
 }
