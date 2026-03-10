@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
+import {
+  useDeleteAddressMutation,
+  useUpdateAddressMutation,
+} from "../features/address/addressApiSlice";
 
-const EditAddressModal = ({ address, onClose }) => {
+const EditAddressModal = ({ address, onClose, refetch }) => {
+  const [deleteAddress] = useDeleteAddressMutation();
+  const [updateAddress] = useUpdateAddressMutation();
+
   const [form, setForm] = useState({
     fullName: "",
     phone: "",
@@ -49,10 +56,24 @@ const EditAddressModal = ({ address, onClose }) => {
       }));
     }
   };
+  const handleSave = async () => {
+    try {
+      await updateAddress({ id: address._id, data: { ...form } }).unwrap();
+      refetch();
+      onClose();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  const handleSave = () => {};
-
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      await deleteAddress(address._id).unwrap();
+      onclose();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <section className="modal" style={{ display: "block" }} tabIndex="-1">
