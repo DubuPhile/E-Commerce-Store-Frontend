@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   useAddAddressMutation,
   useGetAddressesQuery,
-} from "../../features/auth/authApiSlice";
+} from "../../features/address/addressApiSlice";
 import AddAddressModal from "../../Components/AddAddressModal";
 import { useToast } from "../../Context/ToastContext";
 import useAuth from "../../hooks/useAuth";
