@@ -9,8 +9,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: transparent;
   height: 100vh;
+  width: 1440px;
 }
 
 .ads-section {
