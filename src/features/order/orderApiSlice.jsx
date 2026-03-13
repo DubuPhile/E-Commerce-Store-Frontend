@@ -18,7 +18,20 @@ const orderApiSplice = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    checkoutOrder: builder.mutation({
+      query: ({ totalPrice, products }) => ({
+        url: "/order/checkout-order",
+        method: "POST",
+        body: { totalPrice, products },
+        credentials: "include",
+      }),
+      invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
-export const { useConfirmOrderMutation, useGetOrderQuery } = orderApiSplice;
+export const {
+  useConfirmOrderMutation,
+  useGetOrderQuery,
+  useCheckoutOrderMutation,
+} = orderApiSplice;
