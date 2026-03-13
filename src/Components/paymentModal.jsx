@@ -2,7 +2,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
-export const PaymentModal = ({ clientSecret, setConfirm, onClose }) => {
+export const PaymentModal = ({
+  clientSecret,
+  setConfirm,
+  onClose,
+  setPaymentIntentId,
+}) => {
   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHED_KEY);
   return (
     <section className="modal" style={{ display: "block" }} tabIndex="-1">
@@ -17,7 +22,10 @@ export const PaymentModal = ({ clientSecret, setConfirm, onClose }) => {
             ></button>
           </header>
           <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <CheckoutForm setConfirm={setConfirm} />
+            <CheckoutForm
+              setConfirm={setConfirm}
+              setPaymentIntentId={setPaymentIntentId}
+            />
           </Elements>
         </div>
       </div>
