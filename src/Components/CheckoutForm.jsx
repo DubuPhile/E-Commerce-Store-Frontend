@@ -3,13 +3,11 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { usePaymentConfirmMutation } from "../features/payments/paymentApiSlice";
 import { useState } from "react";
 
-const CheckoutForm = ({ setConfirm }) => {
+const CheckoutForm = ({ setConfirm, setPaymentIntentId }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [confirmPayment] = usePaymentConfirmMutation();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -24,15 +22,8 @@ const CheckoutForm = ({ setConfirm }) => {
     });
 
     if (!error && paymentIntent.status === "succeeded") {
-      try {
-        await confirmPayment({ paymentIntentId: paymentIntent.id }).unwrap();
-        setConfirm(true);
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      console.log(error.message);
-      return;
+      setPaymentIntentId(paymentIntent.id);
+      setConfirm(true);
     }
 
     setLoading(false);
