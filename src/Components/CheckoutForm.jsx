@@ -3,40 +3,39 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useState, forwardRef, useImperativeHandle } from "react";
 
-const CheckoutForm = ({ setConfirm, setPaymentIntentId }) => {
+const CheckoutForm = forwardRef(({ setConfirm, setPaymentIntentId }, ref) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
+  useImperativeHandle(ref, () => ({
+    handleSubmit: async () => {
+      if (!stripe || !elements) return false;
+      setLoading(true);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+      try {
+        const { error, paymentIntent } = await stripe.confirmPayment({
+          elements,
+          redirect: "if_required",
+        });
 
-    if (!stripe || !elements) return;
-    setLoading(true);
+        if (!error && paymentIntent?.status === "succeeded") {
+          setPaymentIntentId(paymentIntent.id);
+          setConfirm(true);
+          return true;
+        } else {
+          console.error(error);
+          return false;
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    isLoading: () => loading,
+  }));
 
-    const { error, paymentIntent } = await stripe.confirmPayment({
-      elements,
-      redirect: "if_required",
-    });
-
-    if (!error && paymentIntent.status === "succeeded") {
-      setPaymentIntentId(paymentIntent.id);
-      setConfirm(true);
-    }
-
-    setLoading(false);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <PaymentElement />
-      <button type="submit" disabled={!stripe || loading}>
-        {loading ? "Processing..." : "Pay Now"}
-      </button>
-    </form>
-  );
-};
+  return <PaymentElement />;
+});
 
 export default CheckoutForm;
