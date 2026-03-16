@@ -3,17 +3,17 @@ import { apiSlice } from "../../api/apiSlice";
 export const paymentApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     paymentIntent: builder.mutation({
-      query: (orderId) => ({
+      query: ({ orderId }) => ({
         url: "/pay/payment-intent",
         method: "POST",
-        body: orderId,
+        body: { orderId },
       }),
     }),
     paymentConfirm: builder.mutation({
-      query: (paymentIntentId) => ({
+      query: ({ paymentIntentId }) => ({
         url: "/pay/payment-confirm",
         method: "PATCH",
-        body: paymentIntentId,
+        body: { paymentIntentId },
       }),
     }),
   }),
