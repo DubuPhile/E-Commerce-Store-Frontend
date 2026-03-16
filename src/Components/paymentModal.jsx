@@ -5,30 +5,19 @@ import CheckoutForm from "./CheckoutForm";
 export const PaymentModal = ({
   clientSecret,
   setConfirm,
-  onClose,
+  ref,
   setPaymentIntentId,
 }) => {
   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHED_KEY);
+
+  if (!clientSecret) return <p>Loading Pls Wait...</p>;
   return (
-    <section className="modal" style={{ display: "block" }} tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered ">
-        <div className="modal-content text-center">
-          <header className="modal-header">
-            <h5 className="modal-title">Confirm Payment</h5>
-            <button
-              type="button"
-              className="btn-close"
-              onClick={onClose}
-            ></button>
-          </header>
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <CheckoutForm
-              setConfirm={setConfirm}
-              setPaymentIntentId={setPaymentIntentId}
-            />
-          </Elements>
-        </div>
-      </div>
-    </section>
+    <Elements stripe={stripePromise} options={{ clientSecret }}>
+      <CheckoutForm
+        ref={ref}
+        setConfirm={setConfirm}
+        setPaymentIntentId={setPaymentIntentId}
+      />
+    </Elements>
   );
 };
