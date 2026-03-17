@@ -1,22 +1,31 @@
 import { useState, useEffect } from "react";
 import CartLineItem from "../Components/CartLineItem";
 import { useGetMyCartQuery } from "../features/cart/cartApiSlice";
-import { useConfirmOrderMutation } from "../features/order/orderApiSlice";
+import { useCheckoutOrderMutation } from "../features/order/orderApiSlice";
 import "../Styles/cart.css";
 import { useToast } from "../Context/ToastContext";
-import { usePaymentIntentMutation } from "../features/payments/paymentApiSlice";
-import { PaymentModal } from "../Components/paymentModal";
+import PlaceOrder from "../Components/PlaceOrder";
+import { useGetAddressesQuery } from "../features/address/addressApiSlice";
+import useAuth from "../hooks/useAuth";
 
 const CartPage = () => {
   const { triggerToast } = useToast();
-  const [clientSecret, setClientSecret] = useState(null);
-  const [orderId, setOrderId] = useState(null);
+  const [orders, setOrders] = useState(null);
+  const [OpenPlaceOrder, setOpenPlaceOrder] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [cart, setCart] = useState([]);
   const { data: MyCart, isLoading } = useGetMyCartQuery();
-  const [confirmOrder] = useConfirmOrderMutation();
-  const [paymentIntent] = usePaymentIntentMutation();
+  const [checkoutOrder] = useCheckoutOrderMutation();
   const checkBoxItem = cart.filter((item) => item.checkBox === true);
+
+  const { auth } = useAuth();
+  const {
+    data: Addresses,
+    isLoading: getAddressLoad,
+    refetch,
+  } = useGetAddressesQuery(auth.token, {
+    skip: !auth.token,
+  });
 
   let pageContent = "";
 
@@ -40,41 +49,27 @@ const CartPage = () => {
     a.product.name.localeCompare(b.product.name),
   );
 
-  const onSubmitOrder = async () => {
+  const onSubmitCheckout = async () => {
     try {
-      const order = await confirmOrder({
+      const order = await checkoutOrder({
         totalPrice,
         products: checkBoxItem,
       }).unwrap();
 
-      const newOrderId = order.data._id;
-
-      setOrderId(newOrderId);
-
-      const paymentInt = await paymentIntent({ orderId: newOrderId }).unwrap();
-      setClientSecret(paymentInt.clientSecret);
+      setOrders(order.data);
+      setOpenPlaceOrder(true);
     } catch (err) {
       console.log(err);
       triggerToast(`${err.data?.message || "Error to Place Order"}`, "error");
     }
   };
 
-  const handleClose = async () => {
-    try {
-      setClientSecret(null);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   pageContent = confirm ? (
     <h2>Thank you for your order.</h2>
-  ) : clientSecret ? (
-    <PaymentModal
-      setConfirm={setConfirm}
-      clientSecret={clientSecret}
-      onClose={handleClose}
-    />
+  ) : OpenPlaceOrder ? (
+    <PlaceOrder order={orders} Addresses={Addresses} setConfirm={setConfirm} />
+  ) : sortedItems.length === 0 ? (
+    <p>Empty</p>
   ) : (
     <>
       <h2 className="offscreen">Cart</h2>
@@ -95,9 +90,9 @@ const CartPage = () => {
         <button
           className="cart-submit"
           disabled={!totalItems}
-          onClick={onSubmitOrder}
+          onClick={onSubmitCheckout}
         >
-          Place Order
+          Check Out Order
         </button>
       </div>
     </>
