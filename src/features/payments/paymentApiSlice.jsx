@@ -9,15 +9,7 @@ export const paymentApiSlice = apiSlice.injectEndpoints({
         body: { orderId },
       }),
     }),
-    paymentConfirm: builder.mutation({
-      query: ({ paymentIntentId }) => ({
-        url: "/pay/payment-confirm",
-        method: "PATCH",
-        body: { paymentIntentId },
-      }),
-    }),
   }),
 });
 
-export const { usePaymentIntentMutation, usePaymentConfirmMutation } =
-  paymentApiSlice;
+export const { usePaymentIntentMutation } = paymentApiSlice;
