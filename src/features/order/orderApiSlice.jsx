@@ -3,10 +3,16 @@ import { apiSlice } from "../../api/apiSlice";
 const orderApiSplice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     confirmOrder: builder.mutation({
-      query: ({ totalPrice, products }) => ({
+      query: ({
+        totalPrice,
+        products,
+        Address,
+        paymentMethod,
+        checkoutId,
+      }) => ({
         url: "/order/confirm-order",
         method: "POST",
-        body: { totalPrice, products },
+        body: { totalPrice, products, Address, paymentMethod, checkoutId },
         credentials: "include",
       }),
       invalidatesTags: ["Cart"],
