@@ -5,7 +5,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useState, forwardRef, useImperativeHandle } from "react";
 
-const CheckoutForm = forwardRef(({ setConfirm, setPaymentIntentId }, ref) => {
+const CheckoutForm = forwardRef(({ setPaymentIntentId }, ref) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
@@ -22,7 +22,6 @@ const CheckoutForm = forwardRef(({ setConfirm, setPaymentIntentId }, ref) => {
 
         if (!error && paymentIntent?.status === "succeeded") {
           setPaymentIntentId(paymentIntent.id);
-          setConfirm(true);
           return true;
         } else {
           console.error(error);
