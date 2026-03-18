@@ -24,6 +24,13 @@ const orderApiSplice = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getCheckout: builder.query({
+      query: (checkoutId) => ({
+        url: `/order/get-checkout/${checkoutId}`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
     checkoutOrder: builder.mutation({
       query: ({ totalPrice, products }) => ({
         url: "/order/checkout-order",
@@ -40,4 +47,5 @@ export const {
   useConfirmOrderMutation,
   useGetOrderQuery,
   useCheckoutOrderMutation,
+  useGetCheckoutQuery,
 } = orderApiSplice;
