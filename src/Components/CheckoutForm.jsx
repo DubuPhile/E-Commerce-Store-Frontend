@@ -21,7 +21,6 @@ const CheckoutForm = forwardRef(({ setPaymentIntentId }, ref) => {
         });
 
         if (!error && paymentIntent?.status === "succeeded") {
-          setPaymentIntentId(paymentIntent.id);
           return true;
         } else {
           console.error(error);
