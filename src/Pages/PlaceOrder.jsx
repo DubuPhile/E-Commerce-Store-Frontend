@@ -1,40 +1,62 @@
+import "../Styles/placeOrder.css";
 import { useEffect, useState, useRef } from "react";
 import { usePaymentIntentMutation } from "../features/payments/paymentApiSlice";
-import { PaymentModal } from "./paymentModal";
+import { PaymentModal } from "../Components/paymentModal";
 import { useConfirmOrderMutation } from "../features/order/orderApiSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetAddressesQuery } from "../features/address/addressApiSlice";
+import { useGetCheckoutQuery } from "../features/order/orderApiSlice";
+import useAuth from "../hooks/useAuth";
 
-const PlaceOrder = ({ order, Addresses, setConfirm }) => {
-  const [Address, setAddress] = useState(
-    Addresses.data.filter((item) => item.isDefault),
-  );
-
-  const [orders, setOrder] = useState(order);
+const PlaceOrder = () => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+  const { checkoutId } = useParams();
+  const [Address, setAddress] = useState(null);
   const [active, setActive] = useState("cod");
-  const [credit, setCredit] = useState(false);
   const [clientSecret, setClientSecret] = useState(null);
-  const [paymentIntentId, setPaymentIntentId] = useState(null);
 
   const checkoutRef = useRef();
 
+  const {
+    data: Addresses,
+    isLoading: getAddressLoad,
+    refetch,
+  } = useGetAddressesQuery(auth.token, {
+    skip: !auth.token,
+  });
+  const { data: order, isLoading: checkoutload } =
+    useGetCheckoutQuery(checkoutId);
+
   const [paymentIntent] = usePaymentIntentMutation();
   const [confirmOrder] = useConfirmOrderMutation();
+
+  useEffect(() => {
+    if (Addresses?.data) {
+      const defaultAddress = Addresses.data.find((item) => item.isDefault);
+      setAddress(defaultAddress || null);
+    }
+  }, [Addresses]);
+
+  const orders = order?.data?.[0];
+
   useEffect(() => {
     if (active !== "credit") return;
-    if (!order?._id) return;
+    if (!orders?._id) return;
 
     const fetchPaymentIntent = async () => {
       try {
-        const paymentInt = await paymentIntent({ orderId: order._id }).unwrap();
+        const paymentInt = await paymentIntent({
+          orderId: orders._id,
+        }).unwrap();
         setClientSecret(paymentInt.clientSecret);
-        setPaymentIntentId(paymentInt.paymentId);
-        setCredit(true);
       } catch (err) {
         console.error("Failed to create payment intent:", err);
       }
     };
 
     fetchPaymentIntent();
-  }, [active, order?._id]);
+  }, [active, orders?._id]);
   const methods = [
     { id: "cod", label: "Cash on Delivery" },
     { id: "credit", label: "Credit / Debit Card" },
@@ -46,6 +68,16 @@ const PlaceOrder = ({ order, Addresses, setConfirm }) => {
       const isCredit = active === "credit";
       const method = isCredit ? "Credit" : "COD";
 
+      if (checkoutRef.current) {
+        const result = await checkoutRef.current.handleSubmit();
+        console.log(result);
+        if (!result) {
+          console.log("Payment Failed");
+          return;
+        }
+        console.log("Payment succeeded! Confirming order...");
+      }
+
       const order = await confirmOrder({
         totalPrice: orders.totalPrice,
         products: orders.products,
@@ -53,60 +85,55 @@ const PlaceOrder = ({ order, Addresses, setConfirm }) => {
         paymentMethod: method,
         checkoutId: orders._id,
       }).unwrap();
-
-      if (checkoutRef.current) {
-        const success = await checkoutRef.current.handleSubmit();
-        if (success) {
-          console.log("Payment succeeded! Confirming order...");
-        }
-      }
-
-      setConfirm(true);
+      navigate("/success");
     } catch (err) {
       console.log(err);
     }
   };
   const handleCancel = () => {
     console.log("cancel");
+    navigate(-1);
   };
   const handleChangeAddress = () => {
     console.log("changeAddress");
   };
+  if (checkoutload) return <div>Loading checkout...</div>;
   return (
     <>
       <section className="placeorder-main">
         <section className="placeorder-section">
           <h3 className="payment-title">Checkout</h3>
           <form onSubmit={handleSubmitOrder}>
-            {Address.map((item) => {
-              return (
-                <div
-                  className="placeorder-address"
-                  key={item._id}
-                  onClick={handleChangeAddress}
-                >
-                  <div>
-                    <h5>{item.fullName}</h5>
-                    <span>
-                      {[
-                        item.street,
-                        item.city,
-                        item.province,
-                        item.country,
-                        item.postalCode,
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                    </span>
-                  </div>
-                  <span style={{ color: "orange" }}>Change</span>
+            {Address && (
+              <div
+                className="placeorder-address"
+                key={Address._id}
+                onClick={handleChangeAddress}
+              >
+                <div>
+                  <h5>{Address.fullName}</h5>
+                  <span>
+                    {[
+                      Address.street,
+                      Address.city,
+                      Address.province,
+                      Address.country,
+                      Address.postalCode,
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  </span>
                 </div>
-              );
-            })}
+                <span style={{ color: "orange" }}>Change</span>
+              </div>
+            )}
             <div className="placeorder-orders">
-              {orders.products?.map((item) => {
+              {orders?.products?.map((item) => {
                 return (
-                  <div className="placeorder-prod" key={item._id}>
+                  <div
+                    className="placeorder-prod"
+                    key={item._id || item.product?._id}
+                  >
                     <div style={{ display: "flex", flexDirection: "row" }}>
                       <img src={item.product?.imageUrl} className="prod-img" />
                       <h5>{item.product?.name}</h5>
@@ -144,18 +171,14 @@ const PlaceOrder = ({ order, Addresses, setConfirm }) => {
                 </div>
               </div>
               {active === "credit" && (
-                <PaymentModal
-                  ref={checkoutRef}
-                  clientSecret={clientSecret}
-                  setPaymentIntentId={setPaymentIntentId}
-                />
+                <PaymentModal ref={checkoutRef} clientSecret={clientSecret} />
               )}
               <p className="totalPrice">
                 <span>TOTAL:</span>{" "}
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
-                }).format(orders.totalPrice)}
+                }).format(orders?.totalPrice)}
               </p>
             </div>
             <div className="payment-btn">
