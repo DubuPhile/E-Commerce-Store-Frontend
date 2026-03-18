@@ -3,10 +3,12 @@ import { useAddToCartMutation } from "../features/cart/cartApiSlice";
 import { selectCurrentToken } from "../features/auth/authSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useCheckoutOrderMutation } from "../features/order/orderApiSlice";
 
 const BuyPhase = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [addToCart, { isLoading }] = useAddToCartMutation();
+  const [checkoutOrder] = useCheckoutOrderMutation();
   const [isCart, setIsCart] = useState(false);
   const Token = useSelector(selectCurrentToken);
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ const BuyPhase = ({ product }) => {
   const increase = () => {
     setQuantity(quantity + 1);
   };
+  const products = [{ quantity: quantity, product: product }];
+  const totalPrice = quantity * product.price;
 
   const onAddtoCart = async () => {
     if (!Token) return navigate("/login");
@@ -31,7 +35,16 @@ const BuyPhase = ({ product }) => {
       console.log(err);
     }
   };
-  const buyNow = async () => {};
+  const buyNow = async () => {
+    const order = await checkoutOrder({
+      totalPrice,
+      products: products,
+    }).unwrap();
+
+    const checkoutId = order.data._id;
+
+    navigate(`/place-order/${checkoutId}`);
+  };
   const itemInCart = isCart ? "Item in Cart:✔️" : "";
 
   return (
