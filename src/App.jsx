@@ -15,6 +15,8 @@ import Addresses from "./Pages/profilePages/Addresses";
 import NotFound from "./Pages/NotFound";
 import Layout from "./Components/Layout";
 import ProfileLayout from "./Components/ProfileLayout";
+import ThankyouPage from "./Pages/ThankyouPage";
+import PlaceOrder from "./Pages/PlaceOrder";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
                 <Route path="orders" element={<MyOrders />} />
               </Route>
               <Route path="cart" element={<CartPage />} />
+              <Route path="success" element={<ThankyouPage />} />
+              <Route path="place-order/:checkoutId" element={<PlaceOrder />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
