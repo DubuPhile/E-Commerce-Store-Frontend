@@ -48,6 +48,13 @@
   height: 2rem;
   font-family: "Times New Roman", Times, serif;
 }
+@media (max-width: 768px) {
+  .searchResult span {
+    font-size: x-small;
+    padding: 5px;
+  }
+}
+
 .search-bar:hover,
 .search-bar:focus {
   background-color: hsl(0, 0%, 80%);
@@ -114,6 +121,7 @@
   top: 100%;
   left: 0px;
   width: 35vw;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -125,6 +133,9 @@
   transform: translateY(-10px);
   transition: all 0.25s ease;
   z-index: 1000;
+}
+.searchResult span {
+  padding: 5px;
 }
 
 .searchResult.active {
