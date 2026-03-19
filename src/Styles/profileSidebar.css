@@ -4,6 +4,7 @@
   background-color: hsl(0, 0%, 100%);
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  z-index: 50;
 }
 
 .sidebar-item {
@@ -49,7 +50,8 @@
   font-weight: 600;
   background-color: var(--background-color);
   border-radius: 15px;
-  padding-left: 25px;
+  padding-left: 20px;
+  padding-right: 10px;
   margin-left: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -78,6 +80,23 @@
 
 @media (max-width: 768px) {
   .sidebar {
+    position: absolute;
+    width: inherit;
+  }
+  .left span,
+  .fa-chevron-down,
+  .submenu-wrapper {
     display: none;
+  }
+  .sidebar:hover {
+    .left span {
+      display: inline;
+    }
+    .fa-chevron-down {
+      display: inline;
+    }
+    .submenu-wrapper {
+      display: block;
+    }
   }
 }
