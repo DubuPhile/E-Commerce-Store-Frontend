@@ -7,7 +7,6 @@ import PersistLogin from "./Components/PersistLogin";
 import ProdDescriptionPage from "./Pages/prodDescriptionPage";
 import RegisterPage from "./Pages/RegisterPage";
 import Profile from "./Pages/profilePages/Profile";
-import Bank from "./Pages/profilePages/BankPage";
 import ChangePassword from "./Pages/profilePages/changePassword";
 import SetPassword from "./Pages/profilePages/setPassword";
 import MyOrders from "./Pages/profilePages/MyOrders";
@@ -40,7 +39,6 @@ function App() {
                   <Route path="change-password" element={<ChangePassword />} />
                   <Route path="set-password" element={<SetPassword />} />
                   <Route path="addresses" element={<Addresses />} />
-                  <Route path="bank" element={<Bank />} />
                 </Route>
                 <Route path="orders" element={<MyOrders />} />
               </Route>
