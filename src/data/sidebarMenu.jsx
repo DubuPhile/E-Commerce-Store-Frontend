@@ -5,7 +5,6 @@ export const profileMenu = (hasLocalPassword) => [
     icon: "fa-user",
     children: [
       { id: "info", label: "My Profile", path: "/profile/my-profile" },
-      { id: "banks", label: "Banks & Cards", path: "/profile/bank" },
       { id: "addresses", label: "Addresses", path: "/profile/Addresses" },
       {
         id: "password",
