@@ -59,10 +59,21 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
+  width: 100px;
   background-color: #f2f2f2;
   border-radius: 10px;
   font-size: small;
   font-family: "Poppins", sans-serif;
+}
+.place-order-price {
+  display: flex;
+  flex-direction: column;
+}
+.place-order-price :first-child {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 5px;
 }
 
 .payment-container {
