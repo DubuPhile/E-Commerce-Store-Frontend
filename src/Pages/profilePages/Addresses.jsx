@@ -49,7 +49,11 @@ const Addresses = () => {
   return (
     <section className="address-main">
       <h4> Addresses </h4>
-      <button onClick={onAddAddress} className="add-address-button">
+      <button
+        onClick={onAddAddress}
+        className="add-address-button"
+        style={{ marginLeft: "10px" }}
+      >
         Add Address <i className="fa-solid fa-plus"></i>
       </button>
       {getAddressLoad ? (
