@@ -36,6 +36,7 @@ const BuyPhase = ({ product }) => {
     }
   };
   const buyNow = async () => {
+    if (!Token) return navigate("/login");
     const order = await checkoutOrder({
       totalPrice,
       products: products,
