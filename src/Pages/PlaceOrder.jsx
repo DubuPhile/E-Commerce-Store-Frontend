@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetAddressesQuery } from "../features/address/addressApiSlice";
 import { useGetCheckoutQuery } from "../features/order/orderApiSlice";
 import useAuth from "../hooks/useAuth";
+import ChangeAddressModal from "../Components/ChangeAddressModal";
 
 const PlaceOrder = () => {
   const { auth } = useAuth();
@@ -15,6 +16,7 @@ const PlaceOrder = () => {
   const [Address, setAddress] = useState(null);
   const [active, setActive] = useState("cod");
   const [clientSecret, setClientSecret] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const checkoutRef = useRef();
 
@@ -94,8 +96,9 @@ const PlaceOrder = () => {
     console.log("cancel");
     navigate(-1);
   };
-  const handleChangeAddress = () => {
-    console.log("changeAddress");
+  const handleChangeAddress = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
   };
   if (checkoutload) return <div>Loading checkout...</div>;
   return (
@@ -109,6 +112,7 @@ const PlaceOrder = () => {
                 className="placeorder-address"
                 key={Address._id}
                 onClick={handleChangeAddress}
+                onClose={() => setOpenModal(false)}
               >
                 <div>
                   <h5>{Address.fullName}</h5>
@@ -138,7 +142,7 @@ const PlaceOrder = () => {
                       <img src={item.product?.imageUrl} className="prod-img" />
                       <h5>{item.product?.name}</h5>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div className="place-order-price">
                       <span>
                         {new Intl.NumberFormat("en-US", {
                           style: "currency",
@@ -194,6 +198,12 @@ const PlaceOrder = () => {
               </button>
             </div>
           </form>
+          {openModal && (
+            <ChangeAddressModal
+              setAddress={setAddress}
+              onClose={() => setOpenModal(false)}
+            />
+          )}
         </section>
       </section>
     </>
