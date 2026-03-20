@@ -138,3 +138,34 @@
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.empty-cart-img {
+  width: 200px;
+  padding: 0;
+  margin: 0;
+}
+.empty-cart h5,
+.empty-cart button {
+  transform: translateY(-20px);
+}
+.empty-cart button {
+  padding: 5px;
+  border: none;
+  font-family: sans-serif;
+  border-radius: 10px;
+  background-color: var(--background-color);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+.empty-cart button:hover {
+  background-color: hsl(39, 90%, 55%);
+}
+.empty-cart button:active {
+  background-color: hsl(39, 90%, 60%);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
