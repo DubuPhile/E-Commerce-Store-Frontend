@@ -3,10 +3,12 @@ import "../../Styles/MyOrders.css";
 import processing from "../../Components/MyOrders/processing";
 import toShipped from "../../Components/MyOrders/ToShip";
 import toComplete from "../../Components/MyOrders/toComplete";
+import paidProducts from "../../Components/MyOrders/PaidProducts";
 
 const tabs = [
   { id: "processing", label: "Processing", component: processing },
   { id: "ship", label: "To Ship", component: toShipped },
+  { id: "paid", label: "Paid Products", component: paidProducts },
   { id: "completed", label: "Completed", component: toComplete },
 ];
 
