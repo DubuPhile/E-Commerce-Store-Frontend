@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetOrderQuery } from "../../features/order/orderApiSlice";
 import empty from "../../assets/empty-box.png";
+import Orders from "./Orders";
 
 const toShipped = () => {
   const { data, isLoading } = useGetOrderQuery();
@@ -17,49 +18,10 @@ const toShipped = () => {
       {orders.length === 0 ? (
         <div className="empty-orders">
           <img src={empty} />
-          <h6>No To Shipped Orders</h6>
+          <h6>No to Shipped Orders</h6>
         </div>
       ) : (
-        orders?.map((order) => (
-          <div className="order-style" key={order._id}>
-            <h4>{order.orderNumber}</h4>
-            <div className="order-status toshipped">
-              {order.tracking.status}
-            </div>
-            {order.products.map((item) => (
-              <div className="prod-style" key={item._id}>
-                <div className="title-img-product">
-                  <img
-                    className="product-img"
-                    src={item.product.imageUrl}
-                  ></img>
-                </div>
-                <div className="product-price">
-                  <h5>{item.product.name}</h5>
-                  <div className="qty-price">
-                    <p>Quantity: {item.quantity}</p>
-                    <p>
-                      Price:{" "}
-                      {new Intl.NumberFormat("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      }).format(item.product.price)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-            {order.totalPrice != null && (
-              <p className="total-price">
-                Total:{" "}
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                }).format(order.totalPrice)}
-              </p>
-            )}
-          </div>
-        ))
+        <Orders orders={orders} />
       )}
     </section>
   );
