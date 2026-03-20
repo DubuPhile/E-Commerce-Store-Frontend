@@ -89,7 +89,8 @@
 .address-line-main {
   padding: 5px;
   border-radius: 10px 0 0 10px;
-  border: 1px solid;
+  border: none;
+  background-color: #e9e8e8;
   margin: 10px;
   margin-right: 0;
   width: 350px;
@@ -169,7 +170,7 @@
   margin: 10px;
   margin-left: 0;
   padding: 10px;
-  border: 1px solid;
+  border: none;
   background-color: var(--background-color);
   border-radius: 0 10px 10px 0;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
