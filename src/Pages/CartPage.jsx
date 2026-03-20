@@ -6,6 +6,7 @@ import "../Styles/cart.css";
 import { useToast } from "../Context/ToastContext";
 import { useNavigate } from "react-router-dom";
 import { calculateTotalPrice, calculateTotalItems } from "../utils/computation";
+import emptyCart from "../assets/empty-cart.png";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -49,7 +50,11 @@ const CartPage = () => {
 
   pageContent =
     sortedItems.length === 0 ? (
-      <p>Empty</p>
+      <section className="empty-cart">
+        <img src={emptyCart} alt="empty-cart" className="empty-cart-img" />
+        <h5>There is no items here</h5>
+        <button onClick={() => navigate("/")}>Browse Shop</button>
+      </section>
     ) : (
       <>
         <h2 className="offscreen">Cart</h2>
