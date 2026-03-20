@@ -140,6 +140,11 @@ html {
   height: 100%;
   margin: 10px;
 }
+@media (max-width: 768px) {
+  .profile-body {
+    padding-left: 40px;
+  }
+}
 
 .modal {
   z-index: 9999;
