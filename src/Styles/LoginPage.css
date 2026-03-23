@@ -14,6 +14,9 @@
 }
 
 .ads-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 60%;
   height: 80vh;
   margin-left: 20px;
