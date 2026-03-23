@@ -62,7 +62,9 @@ const LoginPage = () => {
 
   return (
     <section className="login-page">
-      <div className="ads-section"></div>
+      <div className="ads-section">
+        <h1>Adds Section</h1>
+      </div>
       <div className="login-section">
         {isLoading ? (
           <h3>Loading...</h3>
