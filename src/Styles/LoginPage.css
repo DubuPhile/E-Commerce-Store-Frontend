@@ -15,7 +15,7 @@
 }
 
 .ads-section {
-  flex: 0 0 60%;
+  width: 60%;
   height: 80vh;
   margin-left: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
@@ -23,7 +23,7 @@
   background-color: var(--background-color);
 }
 .login-section {
-  flex: 0 0 40%;
+  width: 40%;
   height: 80vh;
   display: flex;
   flex-direction: column;
