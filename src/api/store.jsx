@@ -2,6 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
 import authReducer from "../features/auth/authSlice";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -9,7 +11,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: true,
+  devTools: !isProduction,
 });
 
 export default store;
