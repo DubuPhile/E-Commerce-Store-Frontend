@@ -63,13 +63,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="forAdsSection">
-        {console.log(document.querySelector(".ads-section"))}
         <h1>Adds Section</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, amet
-          nam atque nemo suscipit, neque dicta nulla mollitia facere vitae
-          ratione! Pariatur quasi corrupti et obcaecati, odit cumque unde saepe!
-        </p>
       </div>
       <div className="login-section">
         {isLoading ? (
