@@ -36,6 +36,9 @@
   background-color: var(--root-background-color);
 }
 @media (max-width: 768px) {
+  .ads-section {
+    display: none;
+  }
   .login-section {
     width: 100%;
     border-radius: 20px 20px 20px 20px;
