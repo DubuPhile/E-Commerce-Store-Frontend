@@ -63,6 +63,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="ads-section">
+        {console.log("ads section")}
         <h1>Adds Section</h1>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, amet
