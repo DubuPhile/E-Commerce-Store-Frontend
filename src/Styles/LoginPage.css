@@ -1,6 +1,6 @@
 :root {
   --background-color: hsl(39, 90%, 50%);
-  --root-backgroud-color: #262626;
+  --root-background-color: #262626;
   --text-color: black;
 }
 
@@ -33,7 +33,7 @@
   margin-right: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
   border-radius: 0 20px 20px 0;
-  background-color: var(--root-backgroud-color);
+  background-color: var(--root-background-color);
 }
 @media (max-width: 768px) {
   .ads-section {
