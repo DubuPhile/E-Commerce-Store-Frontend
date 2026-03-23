@@ -15,8 +15,7 @@
   margin-left: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
   border-radius: 20px 0 0 20px;
-  background-color: green;
-  z-index: 999999;
+  background-color: var(--background-color);
 }
 .login-section {
   width: 40%;
