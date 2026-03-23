@@ -13,17 +13,6 @@
   max-width: 1440px;
 }
 
-.ads-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60%;
-  height: 80vh;
-  margin-left: 20px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
-  border-radius: 20px 0 0 20px;
-  background-color: green;
-}
 .login-section {
   width: 40%;
   height: 80vh;
