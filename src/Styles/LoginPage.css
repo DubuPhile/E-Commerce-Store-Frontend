@@ -32,7 +32,7 @@
   background-color: var(--login-color);
 }
 @media (max-width: 768px) {
-  .ads-section {
+  .forAdsSection {
     display: none;
   }
   .login-section {

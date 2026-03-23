@@ -128,7 +128,7 @@
 }
 
 @media (max-width: 768px) {
-  .ads-section {
+  .forAdsSection {
     display: none;
   }
   .register-section {
