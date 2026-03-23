@@ -61,7 +61,7 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="login-page">
+    <div className="login-page">
       <div className="ads-section">
         <h1>Adds Section</h1>
       </div>
@@ -115,7 +115,7 @@ const LoginPage = () => {
           </>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 
