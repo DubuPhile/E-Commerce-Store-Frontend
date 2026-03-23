@@ -62,12 +62,10 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <div className="ads-section">
-        {isLoading ? (
-          <h3>Loading...</h3>
-        ) : (
+      <div className="login-section">
+        <div className="ads-section">
           <>
-            {console.log("ads section")}
+            {console.log(document.querySelector(".ads-section"))}
             <h1>Adds Section</h1>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste,
@@ -76,9 +74,7 @@ const LoginPage = () => {
               unde saepe!
             </p>
           </>
-        )}
-      </div>
-      <div className="login-section">
+        </div>
         {isLoading ? (
           <h3>Loading...</h3>
         ) : (
