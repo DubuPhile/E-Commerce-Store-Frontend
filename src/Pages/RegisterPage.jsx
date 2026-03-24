@@ -65,7 +65,7 @@ const RegisterPage = () => {
   };
   return (
     <section className="register-page">
-      <div className="ads-section"></div>
+      <div className="forAdsSection"></div>
       <div className="register-section">
         {isError ? <p className="error-message">{error}</p> : ""}
         <h1 className="register-title">Register</h1>
