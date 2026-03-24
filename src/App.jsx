@@ -16,6 +16,9 @@ import Layout from "./Components/Layout";
 import ProfileLayout from "./Components/ProfileLayout";
 import ThankyouPage from "./Pages/ThankyouPage";
 import PlaceOrder from "./Pages/PlaceOrder";
+import PhonePage from "./Pages/PhonePage";
+import LaptopPage from "./Pages/LaptopPage";
+import AccessoriesPage from "./Pages/AccessoriesPage";
 
 function App() {
   return (
@@ -25,11 +28,14 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
 
         <Route path="/" element={<Layout />}>
-          <Route
-            path="/product-details/:Id"
-            element={<ProdDescriptionPage />}
-          />
           <Route element={<PersistLogin />}>
+            <Route path="/phones" element={<PhonePage />} />
+            <Route path="/laptops" element={<LaptopPage />} />
+            <Route path="/accessories" element={<AccessoriesPage />} />
+            <Route
+              path="/product-details/:Id"
+              element={<ProdDescriptionPage />}
+            />
             <Route index element={<HomePage />} />
             <Route element={<RequireAuth allowedRoles={[700]} />}>
               <Route element={<ProfileLayout />}>
