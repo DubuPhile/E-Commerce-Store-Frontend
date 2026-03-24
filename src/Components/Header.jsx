@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../features/auth/authSlice";
@@ -17,6 +17,7 @@ const Header = () => {
   });
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef(null);
+  const location = useLocation();
 
   const { data: products, isLoading } = useSearchProductQuery(search, {
     skip: search.length < 1,
@@ -91,7 +92,7 @@ const Header = () => {
           {User ? (
             <DropdownUser />
           ) : (
-            <Link to={"/login"} className="Login">
+            <Link to={"/login"} className="Login" state={{ from: location }}>
               Log-in /Sign-Up
             </Link>
           )}
