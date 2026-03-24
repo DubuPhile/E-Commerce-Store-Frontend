@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../Styles/LoginPage.css";
 import { useState, useRef, useEffect } from "react";
 import { useLoginMutation } from "../features/auth/authApiSlice";
@@ -19,6 +19,9 @@ const LoginPage = () => {
   const [login, { isLoading, isSuccess }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/recent";
 
   useEffect(() => {
     userRef.current.focus();
@@ -44,7 +47,7 @@ const LoginPage = () => {
       dispatch(setCredentials({ userData }));
       setUsername("");
       setPassword("");
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (err) {
       console.log(err);
       if (err?.status === "FETCH_ERROR") {
@@ -63,7 +66,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="forAdsSection">
-        <h1>Adds Section</h1>
+        <h1>Ads Section</h1>
       </div>
       <div className="login-section">
         {isLoading ? (
