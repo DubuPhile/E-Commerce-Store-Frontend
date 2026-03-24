@@ -17,7 +17,7 @@ const addressApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     deleteAddress: builder.mutation({
-      query: (addressId) => ({
+      query: ({ addressId }) => ({
         url: `/user/delete-address/${addressId}`,
         method: "DELETE",
       }),

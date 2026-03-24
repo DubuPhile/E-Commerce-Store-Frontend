@@ -68,7 +68,7 @@ const EditAddressModal = ({ address, onClose, refetch }) => {
 
   const handleDelete = async () => {
     try {
-      await deleteAddress(address._id).unwrap();
+      await deleteAddress({ addressId: address._id }).unwrap();
       onclose();
     } catch (err) {
       console.log(err);
