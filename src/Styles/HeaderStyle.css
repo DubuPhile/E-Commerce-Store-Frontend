@@ -24,10 +24,7 @@
   flex-direction: row;
   font-size: 1rem;
 }
-.header-title h2 {
-  margin-right: clamp(15px, 3.5vw, 50px);
-  font-size: clamp(8px, 3.5vw, 35px);
-}
+
 .header-title button {
   border: none;
   background-color: transparent;
@@ -52,6 +49,9 @@
   .searchResult span {
     font-size: x-small;
     padding: 5px;
+  }
+  .logo span {
+    display: none;
   }
 }
 
@@ -155,4 +155,13 @@
 
 .searchResult section:hover {
   background-color: hsl(0, 0%, 85%);
+}
+.logo {
+  margin-right: clamp(15px, 3.5vw, 50px);
+  font-size: clamp(8px, 3.5vw, 20px);
+  cursor: pointer;
+}
+.logo-img {
+  width: 60px;
+  padding: 5px;
 }
