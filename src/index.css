@@ -151,3 +151,26 @@ html {
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+/*Thank you Page*/
+.ty-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
+.ty-page-button {
+  border: none;
+  background-color: var(--background-color);
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.ty-page-button:hover {
+  background-color: hsl(39, 90%, 45%);
+}
+.ty-page-button:active {
+  background-color: hsl(39, 90%, 40%);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
