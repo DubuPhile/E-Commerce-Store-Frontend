@@ -19,7 +19,7 @@ const Nav = () => {
           onClick={() => setOpen(!open)}
           ref={openRef}
         >
-          Products ▾
+          Category ▾
         </div>
 
         <div className="nav-dropdown-menu">
