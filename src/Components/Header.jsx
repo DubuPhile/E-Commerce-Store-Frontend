@@ -37,7 +37,10 @@ const Header = () => {
     <header className="header">
       <section className="header-section">
         <div className="header-title">
-          <h2>E-commerce Store</h2>
+          <div className="logo" onClick={() => navigate("/")}>
+            <img src="/logo.png" className="logo-img" alt="logo" />
+            <span>DubuTech Shop</span>
+          </div>
           <div ref={searchRef}>
             <form className="search-bar-form">
               <div className="input-bar">
