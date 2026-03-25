@@ -8,6 +8,7 @@ import { useGetAddressesQuery } from "../features/address/addressApiSlice";
 import { useGetCheckoutQuery } from "../features/order/orderApiSlice";
 import useAuth from "../hooks/useAuth";
 import ChangeAddressModal from "../Components/ChangeAddressModal";
+import { useToast } from "../Context/ToastContext";
 
 const PlaceOrder = () => {
   const { auth } = useAuth();
@@ -17,6 +18,7 @@ const PlaceOrder = () => {
   const [active, setActive] = useState("cod");
   const [clientSecret, setClientSecret] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const { triggerToast } = useToast();
 
   const checkoutRef = useRef();
 
@@ -72,9 +74,8 @@ const PlaceOrder = () => {
 
       if (checkoutRef.current) {
         const result = await checkoutRef.current.handleSubmit();
-        console.log(result);
         if (!result) {
-          console.log("Payment Failed");
+          triggerToast("Invalid Card Number!", "error");
           return;
         }
         console.log("Payment succeeded! Confirming order...");
@@ -87,13 +88,14 @@ const PlaceOrder = () => {
         paymentMethod: method,
         checkoutId: orders._id,
       }).unwrap();
+      triggerToast("Ordered Placed", "success");
       navigate("/success");
     } catch (err) {
       console.log(err);
+      triggerToast("Error order pls try again!", "error");
     }
   };
   const handleCancel = () => {
-    console.log("cancel");
     navigate(-1);
   };
   const handleChangeAddress = (e) => {
