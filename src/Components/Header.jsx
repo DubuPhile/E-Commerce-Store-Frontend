@@ -8,10 +8,12 @@ import DropdownUser from "./DropdownUser";
 import { useGetMyCartQuery } from "../features/cart/cartApiSlice";
 import { useSearchProductQuery } from "../features/products/productsApiSlice";
 import useClickOutside from "../hooks/useClickOutside";
+import { useDebounce } from "../hooks/useDebounce";
 
 const Header = () => {
   const User = useSelector(selectCurrentUser);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 500);
   const { data: cart } = useGetMyCartQuery(undefined, {
     skip: !User,
   });
@@ -19,7 +21,7 @@ const Header = () => {
   const searchRef = useRef(null);
   const location = useLocation();
 
-  const { data: products, isLoading } = useSearchProductQuery(search, {
+  const { data: products, isLoading } = useSearchProductQuery(debouncedSearch, {
     skip: search.length < 1,
   });
 
